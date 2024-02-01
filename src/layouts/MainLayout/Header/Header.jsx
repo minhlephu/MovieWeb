@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Navbar,
-  MobileNav,
+
   Typography,
   Button,
   IconButton,
@@ -131,7 +131,7 @@ export function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        {/* <MobileNav open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="text" size="sm" className="">
@@ -141,7 +141,7 @@ export function StickyNavbar() {
               <span>Sign in</span>
             </Button>
           </div>
-        </MobileNav>
+        </MobileNav> */}
       </Navbar>
       <div className="mx-auto max-w-screen-md py-12">
         <Card className="mb-12 overflow-hidden">

@@ -5,7 +5,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Card,
 } from "@material-tailwind/react";
  
 export function StickyNavbar() {
@@ -143,7 +142,7 @@ export function StickyNavbar() {
           </div>
         </MobileNav> */}
       </Navbar>
-      <div className="mx-auto max-w-screen-md py-12">
+      {/* <div className="mx-auto max-w-screen-md py-12">
         <Card className="mb-12 overflow-hidden">
           <img
             alt="nature"
@@ -169,7 +168,7 @@ export function StickyNavbar() {
           to be a chunk of change. There are more projects lined up charge extra
           the next time.
         </Typography>
-      </div>
+      </div> */}
     </div>
   );
 }

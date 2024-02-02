@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --tab-bg-active: #231f20;
+    --tab-text-color: #cdc197;
+}
+

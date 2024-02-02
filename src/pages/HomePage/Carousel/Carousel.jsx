@@ -1,6 +1,6 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import homeCarouselData from "../../constrants/homeCarouselData";
+import homeCarouselData from "../../../constrants/homeCarouselData";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./carousel.css";
@@ -9,15 +9,15 @@ function NextArrow(props) {
   return (
     <ArrowForwardIosIcon
       sx={{
-        height: 150,
-        width: 50,
+        height: 300,
+        width: 70,
         transform: "translateY(-50%)",
         color: "#d8d8d8 !important",
         transition: "all .2s",
         "&:hover": { color: "#fb4226 !important" },
       }}
       onClick={onClick}
-      className="absolute z-[2] top-[50%]  z-2 right-4 cursor-pointer"
+      className="absolute z-[2] top-[50%]  z-2 right-5 cursor-pointer"
     />
   );
 }
@@ -27,19 +27,19 @@ function PrevArrow(props) {
   return (
     <ArrowBackIosIcon
       sx={{
-        height: 150,
-        width: 50,
+        height: 300,
+        width: 70,
         transform: "translateY(-50%)",
         color: "#d8d8d8 !important",
         transition: "all .2s",
         "&:hover": { color: "#fb4226 !important" },
       }}
       onClick={onClick}
-      className="absolute z-[2] top-[50%] z-2 left-4 cursor-pointer"
+      className="absolute z-[2] top-[50%] z-2 left-5 cursor-pointer"
     />
   );
 }
-const CarouselWeb = () => {
+const Carousel = () => {
   const settings = {
     dots: true,
     infinite: true,
@@ -82,4 +82,4 @@ NextArrow.propTypes = {
 PrevArrow.propTypes = {
   onClick: PropTypes.func,
 };
-export default CarouselWeb;
+export default Carousel;

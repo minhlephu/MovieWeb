@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import BtnPlay from "../BtnPlay/BtnPlay";
 import "./movie.scss";
 import PropTypes from "prop-types";
-const Movie = ({ movie, comingMovie }) => {
+// const FilmPoster = styled.div`
+// background: url(${(props)=>props.poster});
+// `
+const Movie = ({movie}) => {
   return (
     <div
       style={{
@@ -10,19 +14,13 @@ const Movie = ({ movie, comingMovie }) => {
       }}
     >
       <div className="film">
-        <div className="film__img">
-          <div
-            className="film__poster bg-cover bg-center bg-no-repeat rounded-4"        
-          >
-            <div
-              className="film__overlay"
-              onClick={() =>
-                history.push(`/phim/${movie.maPhim}`, { comingMovie })
-              }
-            />
+        <div className="film__img w-full h-full">
+          <div className="film__poster w-full h-[270px]">
+            <img src={movie.poster} alt="" className="w-full h-full rounded-[3px]" />
+            <div className="film__overlay" />
             <div className="play__trailer">
               {/* class play lấy từ Carousel component*/}
-              {/* <BtnPlay cssRoot={"play"} width={48} height={48} urlYoutube={movie.trailer} /> */}
+              <BtnPlay cssRoot={"play"} width={48} height={48} urlYoutube={movie.trailer} />
             </div>
           </div>
           {/* <BlockRating danhGia={movie.danhGia} /> */}
@@ -32,30 +30,25 @@ const Movie = ({ movie, comingMovie }) => {
             <div className="name">
               <p>
                 <span className="c18">C18</span>
-               Hài tết
+               {movie.movieName}
               </p>
             </div>
             <p className="pt-2">
-              {
-                <span className="text_info">
-                  120 phút - Tix 
-                </span>
-              }
+              {<span className="text_info">120 phút - Tix</span>}
             </p>
           </div>
           <div className="film__button">
             {/* nếu thoiLuong = undefined => phim hiện không có lịch chiếu */}
-            
-              <Link
-                style={{ background: comingMovie ? "#60c5ef" : "#fb4226" }}
-                // to={{
-                //   pathname: `/phim/${movie.maPhim}`,
-                //   state: { comingMovie },
-                // }}
-              >
-                {comingMovie ? "THÔNG TIN PHIM" : "MUA VÉ"}
-              </Link>
-            
+
+            {/* <span
+              style={{ background: "#fb4226" }}
+              // to={{
+              //   pathname: `/phim/${movie.maPhim}`,
+              //   state: { comingMovie },
+              // }}
+            >
+              MUA VÉ
+            </span> */}
           </div>
         </div>
       </div>

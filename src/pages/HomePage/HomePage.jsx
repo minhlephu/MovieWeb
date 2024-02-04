@@ -1,4 +1,5 @@
-import Movie from "../../components/Movie/Movie";
+
+import ListMovie from "../../components/Movie/ListMovie";
 import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
 import Carousel from "./Carousel/Carousel";
 import {
@@ -24,32 +25,43 @@ const HomePage = () => {
       to follow my dreams and inspire other people to follow their dreams, too.`,
     },
   ];
+  
+
   return (
     <>
       <StickyNavbar></StickyNavbar>
       <Carousel></Carousel>
-      
-      <Tabs value="dangchieu" className="flex justify-center flex-col items-center mt-8 opacity-100 transition-all font-sans">
-      <TabsHeader className="bg-[#efebdb]" indicatorProps={{
-          className: "bg-[--tab-bg-active] !text-[#cdc197]",
-        }}>
-        {data.map(({ label, value}) => (
-          <Tab key={value} value={value} className="w-[240px] h-10 text-xl text-[#6f6247]">
+
+      <Tabs
+        value="dangchieu"
+        className="flex justify-center flex-col items-center mt-8 opacity-100 transition-all font-sans"
+      >
+        <TabsHeader
+          className="bg-[#efebdb]"
+          indicatorProps={{
+            className: "bg-[--tab-bg-active] !text-[#cdc197]",
+          }}
+        >
+          {data.map(({ label, value }) => (
+            <Tab
+              key={value}
+              value={value}
+              className="w-[240px] h-10 text-xl text-[#6f6247]"
+            >
               {label}
-          </Tab>
-        ))}
-      </TabsHeader>
+            </Tab>
+          ))}
+        </TabsHeader>
 
-      <TabsBody>
-        {data.map(({ value, desc }) => (
-          <TabPanel key={value} value={value}>
-            {desc}
-          </TabPanel>
-        ))}
-      </TabsBody>
-    </Tabs>
-
-    <Movie></Movie>
+        <TabsBody>
+          {data.map(({ value, desc }) => (
+            <TabPanel key={value} value={value}>
+              {desc}
+            </TabPanel>
+          ))}
+        </TabsBody>
+      </Tabs>
+      <ListMovie></ListMovie>
     </>
   );
 };

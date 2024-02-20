@@ -4,6 +4,8 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import getVideoId from '../../util/getVideoIdFromUrlyoutube';
+import { useDispatch, useSelector } from 'react-redux';
+import { CLOSE_MODAL } from '../../redux/constrants/ModalTrailer';
 const PREFIX = 'index';
 const classes = {
   paper: `${PREFIX}-paper`,
@@ -47,6 +49,10 @@ const StyledDialog = styled(Dialog)((
   }
 }));
 const ModalTrailer = () => {
+  const { open, urlYoutube } = useSelector(
+    (state) => state.ModalTrailerReducer
+  );
+  const dispatch = useDispatch();
     const handleClose = () => {
         dispatch({ type: CLOSE_MODAL, payload: { open: false } });
       };

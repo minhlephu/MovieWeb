@@ -1,4 +1,5 @@
 
+import ModalTrailer from "../../components/ModalTrailer/ModalTrailer";
 import ListMovie from "../../components/Movie/ListMovie";
 import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
 import Carousel from "./Carousel/Carousel";
@@ -14,15 +15,12 @@ const HomePage = () => {
     {
       label: "Đang Chiếu",
       value: "dangchieu",
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people
-      who are like offended by it, it doesn't matter.`,
+      desc: <ListMovie></ListMovie>,
     },
     {
       label: "Sắp Chiếu",
       value: "sapchieu",
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
+      desc: <ListMovie></ListMovie>,
     },
   ];
   
@@ -31,7 +29,6 @@ const HomePage = () => {
     <>
       <StickyNavbar></StickyNavbar>
       <Carousel></Carousel>
-
       <Tabs
         value="dangchieu"
         className="flex justify-center flex-col items-center mt-8 opacity-100 transition-all font-sans"
@@ -61,7 +58,8 @@ const HomePage = () => {
           ))}
         </TabsBody>
       </Tabs>
-      <ListMovie></ListMovie>
+      
+      <ModalTrailer></ModalTrailer>
     </>
   );
 };

@@ -4,6 +4,7 @@ import homeCarouselData from "../../../constrants/homeCarouselData";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./carousel.css";
+import BtnPlay from "../../../components/BtnPlay/BtnPlay";
 function NextArrow(props) {
   const { onClick } = props;
   return (
@@ -68,7 +69,7 @@ const Carousel = () => {
                 className="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent top-0"
                 onClick={() => history.push(`/phim/${banner.maPhim}`)}
               />
-              {/* <BtnPlay cssRoot={"play"} urlYoutube={banner.trailer} /> */}
+              {/* <BtnPlay  cssRoot={"play"} width={48} height={48} urlYoutube={banner.trailer} /> */}
             </div>
           );
         })}

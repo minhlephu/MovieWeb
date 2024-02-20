@@ -1,6 +1,8 @@
 import { styled } from '@mui/material/styles';
 const PREFIX = 'index';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { OPEN_MODAL } from '../../redux/constrants/ModalTrailer';
 const classes = {
   button: `${PREFIX}-button`,
   imgPlay: `${PREFIX}-imgPlay`
@@ -31,9 +33,18 @@ const Root = styled('div')({
   });
 const play = '/img/carousel/play-video.png';
 const BtnPlay = ({ cssRoot,width, height,urlYoutube }) => {
+  const dispatch = useDispatch()
+  const openModal = () => {
+    dispatch({
+      type: OPEN_MODAL, payload: {
+        open: true,
+        urlYoutube
+      }
+    })
+  };
     return (
     <Root className={`${classes.button} ${cssRoot}`}>
-      <img src={play} className={classes.imgPlay} alt="play" />
+      <img src={play} className={classes.imgPlay} onClick={() => openModal()} alt="play" />
     </Root>
     );
 };

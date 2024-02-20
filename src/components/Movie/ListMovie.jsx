@@ -8,6 +8,7 @@ const movie = [
       releaseDate: "02/02/2024",
       poster:
         "https://media.lottecinemavn.com/Media/MovieFile/MovieImg/202401/11343_103_100004.jpg",
+        trailer: "https://www.youtube.com/embed/krgcyk2rjFc",
     },
     {
       movieID: 2,
@@ -16,6 +17,7 @@ const movie = [
       releaseDate: "02/02/2024",
       poster:
         "https://media.lottecinemavn.com/Media/MovieFile/MovieImg/202308/11251_103_100001.jpg",
+        trailer: "https://www.youtube.com/embed/krgcyk2rjFc",
     },
     {
       movieID: 3,

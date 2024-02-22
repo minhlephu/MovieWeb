@@ -15,7 +15,7 @@ const HomePage = () => {
     {
       label: "Đang Chiếu",
       value: "dangchieu",
-      desc: <ListMovie></ListMovie>,
+      desc:"dddđ",
     },
     {
       label: "Sắp Chiếu",
@@ -58,7 +58,7 @@ const HomePage = () => {
           ))}
         </TabsBody>
       </Tabs>
-      
+      <ListMovie></ListMovie>
       <ModalTrailer></ModalTrailer>
     </>
   );

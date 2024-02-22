@@ -4,9 +4,9 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import HomePage from "./pages/HomePage/HomePage";
+import BasicButtons from "./layouts/LayoutAuthentication";
 export default function App() {
   return (
-   <HomePage></HomePage>
+   <BasicButtons></BasicButtons>
   )
 }

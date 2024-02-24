@@ -1,22 +1,21 @@
 import React from "react";
 import {
   Navbar,
-
   Typography,
   Button,
   IconButton,
 } from "@material-tailwind/react";
- 
+
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
- 
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false),
+      () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
- 
+
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -56,15 +55,15 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-         Giá vé
+          Giá vé
         </a>
       </Typography>
     </ul>
   );
- 
+
   return (
     <div className="">
-      <Navbar className="z-10 top-0 w-full  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 fixed">
+      <Navbar className="z-[100] top-0 w-full  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 fixed">
         <div className="flex items-center justify-around text-blue-gray-900">
           <Typography
             as="a"

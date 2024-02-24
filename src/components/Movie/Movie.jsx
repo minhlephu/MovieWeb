@@ -2,10 +2,11 @@
 import BtnPlay from "../BtnPlay/BtnPlay";
 import "./movie.scss";
 import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
 // const FilmPoster = styled.div`
 // background: url(${(props)=>props.poster});
 // `
-const Movie = ({movie}) => {
+const Movie = ({ movie }) => {
   return (
     <div
       style={{
@@ -14,13 +15,28 @@ const Movie = ({movie}) => {
       }}
     >
       <div className="film">
-        <div className="film__img w-full h-full">
-          <div className="film__poster w-full h-[270px]">
-            <img src={movie.poster} alt="" className="w-full h-full rounded-[3px]" />
+        <div className="film__img w-full h-full ">
+          <div className="film__poster w-full h-full">
+            <img
+              src={movie.poster}
+              alt=""
+              className="w-full h-full rounded-[20px]"
+            />
+            <div
+              className="age"
+              style={{ position: "absolute", top: "10px", left: "10px" }}
+            >
+              T{movie.age}
+            </div>
             <div className="film__overlay" />
             <div className="play__trailer">
               {/* class play lấy từ Carousel component*/}
-              <BtnPlay cssRoot={"play"} width={48} height={48} urlYoutube={movie.trailer} />
+              <BtnPlay
+                cssRoot={"play"}
+                width={48}
+                height={48}
+                urlYoutube={movie.trailer}
+              />
             </div>
           </div>
           {/* <BlockRating danhGia={movie.danhGia} /> */}
@@ -28,16 +44,24 @@ const Movie = ({movie}) => {
         <div className="film__content">
           <div className="film__name">
             <div className="name">
-              <p>
-                <span className="c18">C18</span>
-               {movie.movieName}
-              </p>
+              <div>
+                {/* <span className="c18">C18</span> */}
+                {movie.movieName}
+              </div>
             </div>
-            <p className="pt-2">
-              {<span className="text_info">120 phút - Tix</span>}
-            </p>
+            <div className="line">
+              <span className="titlle">Thể loại: &nbsp;</span>
+              <span className="text_info">{movie.genre}</span>
+            </div>
+            <div className="line">
+              <span className="titlle">Thời lượng: &nbsp;</span>
+              <span className="text_info">{movie.duration} phút</span>
+            </div>
           </div>
           <div className="film__button">
+            <Button className="film__button" variant="contained">
+              MUA VÉ
+            </Button>
             {/* nếu thoiLuong = undefined => phim hiện không có lịch chiếu */}
 
             {/* <span

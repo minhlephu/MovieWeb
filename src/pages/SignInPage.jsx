@@ -58,18 +58,17 @@ const SignInPage = () => {
           </FromGroup>
           <FromGroup>
             <div className="text-right">
-              <span className="inline-block text-sm font-medium text-primary">
-                Forgot password
+              <span className="inline-block text-sm font-medium text-[#337ab7]">
+               Quên mật khẩu
               </span>
             </div>
           </FromGroup>
           <Button
-            className="w-full bg-[#337ab7]"
-            kind="primary"
+            className="w-full bg-[#337ab7] text-white"
             type="submit"
             isLoading={isSubmitting}
           >
-            Sign in
+            Đăng nhập
           </Button>
         </form>
       </div>

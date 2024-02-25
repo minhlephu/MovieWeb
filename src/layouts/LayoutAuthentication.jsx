@@ -40,7 +40,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function LayoutAuthentication() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -50,17 +50,17 @@ export default function BasicTabs() {
     <>
       <StickyNavbar></StickyNavbar>
 
-      <div className="bg-[#F1F1F1] h-screen">
+      <div className="bg-[#F1F1F1] h-screen mt-8">
         <div className="h-[72px]"></div>
-        <div className="flex justify-center items-center ">
-          <Box sx={{ width: "50%", margin: "auto" }}>
+        <div>
+          <Box sx={{ width: "40%", margin: "auto" }}>
             <Box sx={{ width: "100%", margin: "auto" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab label="Đăng Nhập" {...a11yProps(0)} />
+                <Tab className="max-w-[240px]" label="Đăng Nhập" {...a11yProps(0)} />
                 <Tab label="Đăng Ký" {...a11yProps(1)} />
               </Tabs>
             </Box>

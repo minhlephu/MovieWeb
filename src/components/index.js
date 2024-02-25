@@ -1,0 +1,1 @@
+export { default as CustomSlier} from "./CustomSlider/CustomSlider"

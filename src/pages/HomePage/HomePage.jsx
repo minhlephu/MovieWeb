@@ -1,4 +1,3 @@
-
 import ModalTrailer from "../../components/ModalTrailer/ModalTrailer";
 import ListMovie from "../../components/Movie/ListMovie";
 import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
@@ -23,12 +22,13 @@ const HomePage = () => {
       desc: <ListMovie></ListMovie>,
     },
   ];
-  
 
   return (
     <>
       <StickyNavbar></StickyNavbar>
-      <Carousel></Carousel>
+      <div className="pt-[4.8%]">
+        <Carousel></Carousel>
+      </div>
       <Tabs
         value="dangchieu"
         className="flex justify-center flex-col items-center mt-8 opacity-100 transition-all font-sans"
@@ -58,7 +58,7 @@ const HomePage = () => {
           ))}
         </TabsBody>
       </Tabs>
-      <ListMovie></ListMovie>
+      
       <ModalTrailer></ModalTrailer>
     </>
   );

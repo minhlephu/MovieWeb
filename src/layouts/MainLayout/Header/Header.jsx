@@ -5,6 +5,7 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -80,14 +81,14 @@ export function StickyNavbar() {
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <span>Log In</span>
+                <Link to="/sign-in">Đăng nhập</Link>
               </Button>
               <Button
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <span>Sign in</span>
+                <Link to="/sign-in">Đăng ký</Link>
               </Button>
             </div>
             <IconButton

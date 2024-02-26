@@ -28,7 +28,7 @@ const Movie = ({ movie }) => {
             >
               T{movie.age}
             </div>
-            <div className="film__overlay" />
+            <div className="film__overlay rounded-[20px]" />
             <div className="play__trailer">
               {/* class play lấy từ Carousel component*/}
               <BtnPlay

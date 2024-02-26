@@ -26,40 +26,38 @@ const HomePage = () => {
   return (
     <>
       <StickyNavbar></StickyNavbar>
-      <div className="pt-[4.8%]">
+      <div>
+        <div className="h-[72px]"></div>
         <Carousel></Carousel>
-      </div>
-      <Tabs
-        value="dangchieu"
-        className="flex justify-center flex-col items-center mt-8 opacity-100 transition-all font-sans"
-      >
-        <TabsHeader
-          className="bg-[#efebdb]"
-          indicatorProps={{
-            className: "bg-[--tab-bg-active] !text-[#cdc197]",
-          }}
+
+        <Tabs
+          value="dangchieu"
+          className="flex justify-center flex-col items-center mt-8 opacity-100 transition-all font-sans"
         >
-          {data.map(({ label, value }) => (
-            <Tab
-              key={value}
-              value={value}
-              className="w-[240px] h-10 text-xl text-[#6f6247]"
-            >
-              {label}
-            </Tab>
-          ))}
-        </TabsHeader>
+          <TabsHeader
+            className="bg-[#1976d2]"
+            indicatorProps={{
+              className: "bg-[#1976d2] shadow-none !text-gray-900",
+            }}
+          >
+            {data.map(({ label, value }) => (
+              <Tab key={value} value={value} className="w-[240px] h-10 text-xl text-white">
+                {label}
+              </Tab>
+            ))}
+          </TabsHeader>
 
-        <TabsBody>
-          {data.map(({ value, desc }) => (
-            <TabPanel key={value} value={value}>
-              {desc}
-            </TabPanel>
-          ))}
-        </TabsBody>
-      </Tabs>
+          <TabsBody>
+            {data.map(({ value, desc }) => (
+              <TabPanel key={value} value={value}>
+                {desc}
+              </TabPanel>
+            ))}
+          </TabsBody>
+        </Tabs>
 
-      <ModalTrailer></ModalTrailer>
+        <ModalTrailer></ModalTrailer>
+      </div>
     </>
   );
 };

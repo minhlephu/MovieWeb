@@ -92,7 +92,7 @@ const movie = [
 ];
 const ListMovie = () => {
   return (
-    <div className="w-full max-w-[80%] max-h-[80%]  m-auto grid grid-cols-4 gap-10">
+    <div className="w-full max-w-[60%] max-h-[80%]  m-auto grid grid-cols-4 gap-10 pt-10">
       {movie.map((item) => (
         <Movie key={item.movieID} movie={item}></Movie>
       ))}

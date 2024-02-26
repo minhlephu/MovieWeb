@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SignInPage from "../pages/SignInPage";
 import { StickyNavbar } from "./MainLayout/Header/Header";
+import SignUpPage from "../pages/SignUpPage";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,14 +54,25 @@ export default function LayoutAuthentication() {
       <div className="bg-[#F1F1F1] h-screen mt-8">
         <div className="h-[72px]"></div>
         <div>
-          <Box sx={{ width: "40%", margin: "auto" }}>
-            <Box sx={{ width: "100%", margin: "auto" }}>
+          <Box sx={{ width: "35%", margin: "auto" }}>
+            <Box
+              sx={{
+                borderBottom: 1,
+                borderColor: "divider",
+                width: "100%",
+                margin: "auto",
+              }}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab className="max-w-[240px]" label="Đăng Nhập" {...a11yProps(0)} />
+                <Tab
+                  className="max-w-[240px]"
+                  label="Đăng Nhập"
+                  {...a11yProps(0)}
+                />
                 <Tab label="Đăng Ký" {...a11yProps(1)} />
               </Tabs>
             </Box>
@@ -70,7 +82,9 @@ export default function LayoutAuthentication() {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              Item Two
+              <div className="w-full  bg-white px-5 py-5 lg:px-16 lg:py-12 mx-auto">
+                <SignUpPage></SignUpPage>
+              </div>
             </CustomTabPanel>
           </Box>
         </div>

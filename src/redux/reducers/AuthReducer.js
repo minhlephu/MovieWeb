@@ -1,11 +1,12 @@
+
 import {
   LOGIN_REQUEST,
-  LOGIN_SUCCESS,
   LOGIN_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   RESET_ERROR_LOGIN_REGISTER,
+  LOGIN_SUCCESS,
 } from "../constrants/Auth";
 
 const currentUser = localStorage.getItem("user")
@@ -15,7 +16,6 @@ const initialState = {
   currentUser: currentUser,
   loadingLogin: false,
   errorLogin: null,
-
   responseRegister: null,
   loadingRegister: false,
   errorRegister: null,
@@ -24,7 +24,7 @@ const initialState = {
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
-      return { ...state, loadingLogin: true, errorLogin: null };
+      return { ...state, loadingLogin: true, errorLogin: null }; // error: null trong trường error đang báo lỗi, nhấn đăng nhập lại thì cần reset lại không báo lỗi nữa
     }
     case LOGIN_SUCCESS: {
       return {

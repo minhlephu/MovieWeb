@@ -8,7 +8,7 @@ import { Label } from "../components/label";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { signIn } from "../redux/actions/Auth";
+import { signInAction } from "../redux/actions/AuthAction";
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   password: yup
@@ -31,10 +31,11 @@ const SignInPage = () => {
     useToggleValue();
   const handleSignIn = (values) => {
     const user = {
-      name: values.name,
+      username: values.name,
       password: values.password,
     };
-    dispatch(signIn(user));
+    console.log(user);
+    dispatch(signInAction(user));
   };
   return (
     <div>

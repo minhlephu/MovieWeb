@@ -10,7 +10,7 @@ const movie = [
     age: "18",
     poster:
       "https://files.betacorp.vn/files/media%2fimages%2f2024%2f01%2f29%2fdieu%2Dnhi%2D141116%2D290124%2D81.jpg",
-    trailer: "https://www.youtube.com/embed/krgcyk2rjFc",
+    trailer: "https://www.youtube.com/embed/Gggw9jwr1h4",
   },
   {
     movieID: 2,

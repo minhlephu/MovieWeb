@@ -1,4 +1,5 @@
 import React from "react";
+import './Header.scss';
 import {
   Navbar,
 
@@ -6,10 +7,32 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
- 
+
+
+const Menu=[{
+  title:"Hà Nội",
+  Rap:[
+    "Rap1",
+    "Rap2",
+    "Rap3"
+  ]
+},
+{
+  title:"thanh hoa",
+  Rap:[
+    "Rap1",
+    "Rap2",
+    "Rap3"
+  ]
+}]
+
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
- 
+  const [submenuVisible, setSubmenuVisible] =React.useState(false);
+
+  const toggleSubmenu = () => {
+    setSubmenuVisible(!submenuVisible);
+  };
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -26,7 +49,7 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Lịch Chiếu
+          Lịch Chiếu Theo Rạp
         </a>
       </Typography>
       <Typography
@@ -73,6 +96,34 @@ export function StickyNavbar() {
           >
             Material Tailwind
           </Typography>
+          <div >
+          <button className="dropbtn" onClick={toggleSubmenu}>
+          
+        Menu
+     
+      </button>
+     
+      <div className={`dropdown-content ${submenuVisible ? 'show' : ''}`}>
+     
+        {Menu.map(e=>(  
+          // eslint-disable-next-line react/jsx-key
+          <div>
+          <div className="sub-menu">
+            <button className="sub-menu-trigger">{e.title}</button>
+            <div className="sub-menu-content">
+          
+           {e.Rap.map(item=>( // eslint-disable-next-line react/jsx-key
+            <a>
+              {item}
+           </a>))} 
+          </div>
+         </div>
+         </div>) )}
+       
+     
+      </div>
+          
+          </div>
           <div className="flex items-center gap-[240px]">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
@@ -97,36 +148,7 @@ export function StickyNavbar() {
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
             >
-              {openNav ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              
             </IconButton>
           </div>
         </div>

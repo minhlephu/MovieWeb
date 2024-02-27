@@ -1,8 +1,7 @@
 import Swal from "sweetalert2";
 import { userService } from "../../services/userService";
-import { jwtDecode } from "jwt-decode";
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS } from "../constrants/Auth";
+import { LOGIN_REQUEST, LOGIN_SUCCESS} from "../constrants/Auth";
 
 export const signInAction = (user) => {
   return async (dispatch) => {
@@ -12,15 +11,15 @@ export const signInAction = (user) => {
       });
       const result = await userService.signIn(user);
       if (result.data.code == 200) {
-        const decoded = jwtDecode(result.data.data);
-        const name =
-          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-        const role =
-          decoded[
-            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-          ];
-        console.log("Name:", name);
-        console.log("Role:", role);
+        // const decoded = jwtDecode(result.data.data);
+        // const name =
+        //   decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+        // const role =
+        //   decoded[
+        //     "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        //   ];
+        // console.log("Name:", name);
+        // console.log("Role:", role);
         localStorage.setItem("user", result.data.data);
         dispatch({
           type: LOGIN_SUCCESS,
@@ -51,11 +50,26 @@ export const signUpAction = (user) => {
   return async ()=>{
     try{
       const result = await userService.signUp(user);
-      if(result.data.code==200){
+      console.log(result);
+      if(result.status==200){
         Swal.fire({
           title: "Đăng ký thành công!",
           icon: "success",
           confirmButtonText: "Đăng nhập ngay",
+        });
+      }
+      if(result.data.status==102){
+        Swal.fire({
+          title: "Tài khoản đã tồn tại!",
+          icon: "error",
+          confirmButtonText: "Vui lòng chọn tên khác!",
+        });
+      }
+      if(result.data.status==103){
+        Swal.fire({
+          title: "Email đã tồn tại!",
+          icon: "error",
+          confirmButtonText: "Vui lòng chọn email khác!",
         });
       }
     }

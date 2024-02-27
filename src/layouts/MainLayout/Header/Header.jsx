@@ -8,8 +8,32 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-
+import { MdArrowDropDown,MdArrowRight   } from "react-icons/md";
 const Menu=[{
+  title:"Hà Nội",
+  Rap:[
+    "Rap1",
+    "Rap2",
+    "Rap3"
+  ]
+},
+{
+  title:"Hà Nội",
+  Rap:[
+    "Rap1",
+    "Rap2",
+    "Rap3"
+  ]
+},
+{
+  title:"Hà Nội",
+  Rap:[
+    "Rap1",
+    "Rap2",
+    "Rap3"
+  ]
+},
+{
   title:"Hà Nội",
   Rap:[
     "Rap1",
@@ -29,7 +53,11 @@ const Menu=[{
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [submenuVisible, setSubmenuVisible] =React.useState(false);
-
+  const [text, setText] = React.useState("Vui Lòng chọn rạp");
+  const handleClick = (e) => {
+    // Thay đổi state của text
+    setText(e);
+  };
   const toggleSubmenu = () => {
     setSubmenuVisible(!submenuVisible);
   };
@@ -98,10 +126,12 @@ export function StickyNavbar() {
           </Typography>
           <div >
           <button className="dropbtn" onClick={toggleSubmenu}>
-          
-        Menu
-     
-      </button>
+          <span className="span1">
+          {text}
+          </span>
+            
+            <MdArrowDropDown  className="icon"/>
+          </button>
      
       <div className={`dropdown-content ${submenuVisible ? 'show' : ''}`}>
      
@@ -109,11 +139,16 @@ export function StickyNavbar() {
           // eslint-disable-next-line react/jsx-key
           <div>
           <div className="sub-menu">
-            <button className="sub-menu-trigger">{e.title}</button>
+            <button className="sub-menu-trigger">
+            <span className="span1">
+            {e.title}
+          </span>
+          <MdArrowRight  className="icon"/>
+          </button>
             <div className="sub-menu-content">
           
            {e.Rap.map(item=>( // eslint-disable-next-line react/jsx-key
-            <a>
+            <a onClick={()=>handleClick(e.title+" - "+item)}>
               {item}
            </a>))} 
           </div>

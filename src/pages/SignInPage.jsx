@@ -34,7 +34,6 @@ const SignInPage = () => {
       username: values.name,
       password: values.password,
     };
-    console.log(user);
     dispatch(signInAction(user));
   };
   return (

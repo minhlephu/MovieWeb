@@ -1,89 +1,95 @@
 /* Your CSS styles */
 .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  .span1{
-    width: 93%;
-  }
-  .icon{
-   margin-top: -10px;
-    font-size: 40px;
-   
-  }
-  .dropbtn {
-    background-color: white;
-    color: black;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    width: 200px;
-    height: 50px;
-    border-radius: 18px;
-    display: flex;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    z-index: 1; 
-    width: 200px;
-    margin-left: 15px;
-    margin-top: 2px;
-    border-top: solid 4px #337ab7;
-  }
-  
-  .dropdown-content.show {
-    display: block;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .sub-menu {
-    position: relative;
-    width: 100%;
-    display: inline-block;
-    
-  }
-  
-  .sub-menu-trigger {
-    background-color: white;
-    color: black;
-    padding: 12px 16px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-  }
-  
-  .sub-menu-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    left: 100%;
-    top: 0;
+  position: relative;
+  display: inline-block;
+}
+.span1 {
+  width: 93%;
+}
+.icon {
+  font-size: 40px;
+}
+.dropbtn {
+  background-color: white;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  border-radius: 18px;
+  display: flex;
+  border: 1px solid #ccc;
+  justify-content: center;
+  align-items: center;
+}
 
-  }
-  
-  .sub-menu:hover .sub-menu-content {
-    display: block;
-    border-top: solid 2px #337ab7;
-  }
-  .sub-menu:hover .sub-menu-trigger {
-    background-color: #337ab7;
- 
-  }
-  
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+  width: 200px;
+  margin-left: 15px;
+  margin-top: 2px;
+  border-top: solid 4px #337ab7;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.sub-menu {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub-menu-trigger {
+  background-color: white;
+  color: black;
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: start;
+}
+
+.sub-menu-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  left: 100%;
+  top: 0;
+  cursor: pointer;
+}
+
+.sub-menu:hover .sub-menu-content {
+  display: block;
+  border-top: solid 2px #337ab7;
+}
+.sub-menu:hover .sub-menu-trigger {
+  background-color: #337ab7;
+  color: white;
+}
+.li-hv:hover {
+  color: #337ab7;
+}

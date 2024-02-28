@@ -7,6 +7,7 @@ import {
   REGISTER_FAIL,
   RESET_ERROR_LOGIN_REGISTER,
   LOGIN_SUCCESS,
+  LOGOUT,
 } from "../constrants/Auth";
 
 const currentUser = localStorage.getItem("user")
@@ -38,6 +39,16 @@ const AuthReducer = (state = initialState, action) => {
         ...state,
         errorLogin: action.payload.error,
         loadingLogin: false,
+      };
+    }
+    case LOGOUT: {
+      localStorage.removeItem("user");
+      return {
+        ...state,
+        currentUser: null,
+        error: null,
+        loading: false,
+        responseRegister: null,
       };
     }
     case REGISTER_REQUEST: {

@@ -1,7 +1,14 @@
-import Swal from "sweetalert2";
 import { userService } from "../../services/userService";
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS} from "../constrants/Auth";
+import {
+  LOGIN_FAIL,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  REGISTER_FAIL,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+} from "../constrants/Auth";
 
 export const signInAction = (user) => {
   return async (dispatch) => {
@@ -27,61 +34,53 @@ export const signInAction = (user) => {
             data: result.data.data,
           },
         });
-        Swal.fire({
-          title: "Đăng nhập thành công!",
-          icon: "success",
-          html: "Thông báo tự động tắt sau 2 giây",
-          timer: 2000,
-          timerProgressBar: true,
-          confirmButtonText: "Ok",
-        });
       }
     } catch (error) {
-      Swal.fire({
-        title: "Có lỗi!",
-        text: error.response.data.content,
-        icon: "error",
-        confirmButtonText: "Thử lại",
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: {
+          error: error.response?.data
+            ? error.response.data.status
+            : error.message,
+        },
       });
     }
   };
 };
+export const logout = () => {
+  return (dispatch) => {
+    dispatch({
+      type: LOGOUT,
+    });
+  };
+};
 export const signUpAction = (user) => {
-  return async ()=>{
-    try{
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: REGISTER_REQUEST,
+      });
       const result = await userService.signUp(user);
       console.log(result);
-      if(result.status==200){
-        Swal.fire({
-          title: "Đăng ký thành công!",
-          icon: "success",
-          confirmButtonText: "Đăng nhập ngay",
+      if (result.status == 200) {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: {
+            data: result.data,
+          },
         });
       }
-      if(result.data.status==102){
-        Swal.fire({
-          title: "Tài khoản đã tồn tại!",
-          icon: "error",
-          confirmButtonText: "Vui lòng chọn tên khác!",
-        });
-      }
-      if(result.data.status==103){
-        Swal.fire({
-          title: "Email đã tồn tại!",
-          icon: "error",
-          confirmButtonText: "Vui lòng chọn email khác!",
-        });
-      }
-    }
-    catch(error){
-      Swal.fire({
-        title: "Error!",
-        text: error.response.data.content,
-        icon: "error",
-        confirmButtonText: "Try Again!",
+    } catch (error) {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: {
+          error: error.response?.data
+            ? error.response.data.status
+            : error.message,
+        },
       });
     }
-  }
+  };
 };
 // export const resetErrorLoginRegister = () => {
 //   return (dispatch) => {

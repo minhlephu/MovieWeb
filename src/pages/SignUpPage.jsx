@@ -1,12 +1,14 @@
 import Button from "../components/button/Button";
 import IconEyeToggle from "../components/icons/IconEyeToggle";
 import Input from "../components/input/Input";
+import { useDispatch } from "react-redux";
 import { Label } from "../components/label";
 import FromGroup from "../components/common/FromGroup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useToggleValue from "../components/hooks/useToggleValue";
+import { signUpAction } from "../redux/actions/AuthAction";
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   email: yup
@@ -19,7 +21,9 @@ const schema = yup.object({
     .min(8, "Password must be 8 character "),
 });
 const SignUpPage = () => {
+  const dispatch = useDispatch();
   const {
+    handleSubmit,
     control,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -28,6 +32,15 @@ const SignUpPage = () => {
   });
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue();
+  const handleSignUp = (values) => {
+    var user = {
+      username: values.name,
+      email: values.email,
+      password: values.password,
+    };
+    console.log(user);
+    dispatch(signUpAction(user));
+  };
   return (
     <div>
       <button className="flex items-center bg-[#ffffff] justify-center w-full py-4 mb-5 text-base font-semibold border gap-x-3 border-[#e5e5e5] rounded-xl text-text2 dark:text-white dark:border-darkStroke">
@@ -35,7 +48,7 @@ const SignUpPage = () => {
         <span>Đăng nhập bằng google</span>
       </button>
 
-      <form>
+      <form onSubmit={handleSubmit(handleSignUp)}>
         <FromGroup>
           <Label htmlFor="name">Họ và tên *</Label>
           <Input

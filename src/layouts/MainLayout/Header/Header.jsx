@@ -1,15 +1,48 @@
 import React from "react";
+import "./Header.scss";
 import {
   Navbar,
   Typography,
   Button,
   IconButton,
 } from "@material-tailwind/react";
+
+import { MdArrowDropDown, MdArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
+const Menu = [
+  {
+    title: "Hà Nội",
+    Rap: ["Rap1", "Rap2", "Rap3"],
+  },
+  {
+    title: "Hà Nội",
+    Rap: ["Rap1", "Rap2", "Rap3"],
+  },
+  {
+    title: "Hà Nội",
+    Rap: ["Rap1", "Rap2", "Rap3"],
+  },
+  {
+    title: "Hà Nội",
+    Rap: ["Rap1", "Rap2", "Rap3"],
+  },
+  {
+    title: "thanh hoa",
+    Rap: ["Rap1", "Rap2", "Rap3"],
+  },
+];
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const [submenuVisible, setSubmenuVisible] = React.useState(false);
+  const [text, setText] = React.useState("Vui Lòng chọn rạp");
+  const handleClick = (e) => {
+    // Thay đổi state của text
+    setText(e);
+  };
+  const toggleSubmenu = () => {
+    setSubmenuVisible(!submenuVisible);
+  };
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -21,19 +54,19 @@ export function StickyNavbar() {
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant="small"
+        variant="h5"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="li-hv p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Lịch Chiếu
+          Lịch Chiếu Theo Rạp
         </a>
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="h5"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="li-hv p-1 font-normal"
       >
         <a href="#" className="flex items-center">
           Phim
@@ -41,9 +74,9 @@ export function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="h5"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="li-hv p-1 font-normal"
       >
         <a href="#" className="flex items-center">
           Rạp
@@ -51,9 +84,9 @@ export function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="h5"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="li-hv p-1 font-normal"
       >
         <a href="#" className="flex items-center">
           Giá vé
@@ -73,22 +106,51 @@ export function StickyNavbar() {
           >
             Material Tailwind
           </Typography>
+          <div>
+            <button className="dropbtn bg-[#f9f9f9]" onClick={toggleSubmenu}>
+              <span className="span1">{text}</span>
+              <MdArrowDropDown className="icon" />
+            </button>
+
+            <div className={`dropdown-content ${submenuVisible ? "show" : ""}`}>
+              {Menu.map((e) => (
+                <div key={e.title}>
+                  <div className="sub-menu">
+                    <button className="sub-menu-trigger">
+                      <span className="span1">{e.title}</span>
+                      <MdArrowRight className="icon" />
+                    </button>
+                    <div className="sub-menu-content">
+                      {e.Rap.map((item) => (
+                        <a
+                          key={item.title}
+                          onClick={() => handleClick(e.title + " - " + item)}
+                        >
+                          {item}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
           <div className="flex items-center gap-[240px]">
-            <div className="mr-4 hidden lg:block">{navList}</div>
+            <div className="mr-4 hidden lg:block ">{navList}</div>
             <div className="flex items-center gap-x-1">
               <Button
                 variant="text"
-                size="sm"
+                size="medium"
                 className="hidden lg:inline-block"
               >
-                <Link to="/sign-in">Đăng nhập</Link>
+                <Link className="text-[16px]" to="sign-in">Đăng nhập</Link>
               </Button>
               <Button
                 variant="gradient"
-                size="sm"
+                size="medium"
                 className="hidden lg:inline-block"
               >
-                <Link to="/sign-in">Đăng ký</Link>
+                <Link className="text-[16px]">Đăng Ký</Link>
               </Button>
             </div>
             <IconButton
@@ -96,38 +158,7 @@ export function StickyNavbar() {
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
-            >
-              {openNav ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
-            </IconButton>
+            ></IconButton>
           </div>
         </div>
         {/* <MobileNav open={openNav}>

@@ -1,11 +1,7 @@
-// import { Link } from "react-router-dom";
 import BtnPlay from "../BtnPlay/BtnPlay";
 import "./movie.scss";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-// const FilmPoster = styled.div`
-// background: url(${(props)=>props.poster});
-// `
 const Movie = ({ movie }) => {
   return (
     <div
@@ -45,7 +41,6 @@ const Movie = ({ movie }) => {
           <div className="film__name">
             <div className="name">
               <div>
-                {/* <span className="c18">C18</span> */}
                 {movie.movieName}
               </div>
             </div>

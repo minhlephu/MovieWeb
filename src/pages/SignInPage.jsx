@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/button/Button";
 import FromGroup from "../components/common/FromGroup";
 import useToggleValue from "../components/hooks/useToggleValue";
@@ -8,7 +8,9 @@ import { Label } from "../components/label";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { signIn } from "../redux/actions/Auth";
+import { signInAction } from "../redux/actions/AuthAction";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   password: yup
@@ -17,6 +19,34 @@ const schema = yup.object({
     .min(8, "Password must be 8 character "),
 });
 const SignInPage = () => {
+  const { currentUser, errorLogin } = useSelector((state) => state.AuthReducer);
+  useEffect(() => {
+    // đăng nhập thành công thì quay về trang trước đó
+    if (currentUser) {
+      Swal.fire({
+        title: "Đăng nhập thành công!",
+        icon: "success",
+        html: "Thông báo tự động tắt sau 2 giây",
+        timer: 2000,
+        timerProgressBar: true,
+        confirmButtonText: "Ok",
+      });
+    }
+  }, [currentUser]);
+  useEffect(() => {
+    // đăng nhập thành công thì quay về trang trước đó
+    if (errorLogin == 101) {
+      Swal.fire({
+        title: "Tài khoản hoặc mật khẩu không đúng!",
+        icon: "error",
+        html: "Thông báo tự động tắt sau 2 giây",
+        timer: 2000,
+        timerProgressBar: true,
+        confirmButtonText: "Ok",
+      });
+    }
+  }, [errorLogin]);
+
   const dispatch = useDispatch();
 
   const {
@@ -31,10 +61,10 @@ const SignInPage = () => {
     useToggleValue();
   const handleSignIn = (values) => {
     const user = {
-      name: values.name,
+      username: values.name,
       password: values.password,
     };
-    dispatch(signIn(user));
+    dispatch(signInAction(user));
   };
   return (
     <div>

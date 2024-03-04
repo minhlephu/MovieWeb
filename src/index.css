@@ -20,6 +20,7 @@ body {
 :root {
   --tab-bg-active: #231f20;
   --tab-text-color: #cdc197;
+  --primary-color: #1976d2;
 }
 
 .abb {

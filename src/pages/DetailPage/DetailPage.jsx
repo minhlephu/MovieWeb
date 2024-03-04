@@ -1,18 +1,65 @@
-import React from 'react'
-import "./detailPage.scss"
-import { CustomSlier, InfoMovie, TabsBooking } from '../../components'
+import React from "react";
+import "./detailPage.scss";
+import {
+  CustomSlier,
+  InfoMovie,
+  ItemComment,
+  TabsBooking,
+} from "../../components";
+import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 
 const DetailPage = () => {
   return (
-    <div className='container-detail w-full max-w-[980px] m-auto'>
-      <CustomSlier />
-      <InfoMovie />
-      <TabsBooking />
-      <div className='rate-review'>
-        <h2 className='text-2xl font-semibold'>Xếp hạng và đánh giá phim</h2>
-      </div>
-    </div>
-  )
-}
+    <>
+      <StickyNavbar />
+      <div className="container-detail w-full max-w-[980px] mx-auto">
+        <CustomSlier />
+        <InfoMovie />
+        <TabsBooking />
+        {/* Form comment */}
+        <div className="rate-review">
+          <h2 className="text-2xl font-semibold">Xếp hạng và đánh giá phim</h2>
+          <form className="form-commment flex h-[100px]">
+            <div className="score-star w-[163px] flex flex-col justify-center items-center">
+              <strong>Xếp hạng</strong>
+              <div className="stars flex">
+                <StarBorderIcon />
+                <StarBorderIcon />
+                <StarBorderIcon />
+                <StarBorderIcon />
+                <StarBorderIcon />
+              </div>
+              <span>5 điểm</span>
+            </div>
+            <div className="grow">
+              <textarea
+                className="h-[98px] w-full p-[10px] border-none outline-none"
+                id="txtComment"
+                title="Vui lòng viết đánh giá phim"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+            <div className="w-[163px] relative">
+              <button className="btn-send-comment w-full h-full">
+                Bình luận
+              </button>
+              <span className="score_etc absolute">0/220 Ký tự</span>
+            </div>
+          </form>
+        </div>
 
-export default DetailPage
+        {/* List comment */}
+        <div>
+          <ItemComment />
+          <ItemComment />
+          <ItemComment />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default DetailPage;

@@ -14,7 +14,7 @@ export default withMT({
         primary: ["Epilogue", "sans-serif"],
       },
       colors: {
-        primary: "#1DC071",
+        primary: "#1976d2",
         secondary: "#6F49FD",
         text1: "#171725",
         text2: "#4B5264",

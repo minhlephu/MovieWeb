@@ -6,7 +6,7 @@ const LayoutAdmin = () => {
     return (
         <>
         <TopBar></TopBar>
-        <div className="flex gap-x-10">
+        <div className="flex">
             <NavBar></NavBar>
             <div className="w-full">
             <Outlet></Outlet>                  

@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import IconProfile from "../../../components/icons/IconProfile";
 import IconLogout from "../../../components/icons/IconLogout";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
@@ -9,7 +9,7 @@ const sidebarLinks = [
   {
     icon: <LiveTvOutlinedIcon></LiveTvOutlinedIcon>,
     title: "Quản lý phim",
-    url: "/movies",
+    url: "/admin/movieManage",
   },
   {
     icon: <TheatersOutlinedIcon></TheatersOutlinedIcon>,
@@ -38,10 +38,8 @@ const sidebarLinks = [
   },
 ];
 const NavBar = () => {
-  const navigate = useNavigate();
-
   const navlinkClass =
-    "flex items-center p-5 gap-x-5  md:h-12  md:rounded-lg md:mb-8  last:mt-auto last:bg-white last:shadow-sdprimary";
+    "flex items-center p-5 gap-x-5  md:h-12  md:rounded-lg md:mb-4  last:mt-auto last:bg-white last:shadow-sdprimary";
   return (
     <div className="w-full md:w-[300px] h-screen bg-[white] shadow-[10px_10px_20px_rgba(218,_213,_213,_0.15)] px-[14px] py-10 flex flex-col flex-shrink-0">
       {sidebarLinks.map((link) => {
@@ -51,7 +49,6 @@ const NavBar = () => {
               className={`${navlinkClass} text-icon-color`}
               key={link.title}
               onClick={() => {
-                navigate("/");
                 window.location.reload();
               }}
             >
@@ -67,7 +64,7 @@ const NavBar = () => {
             className={({ isActive }) =>
               isActive
                 ? `${navlinkClass} text-[#1976d2] bg-[#1976d2] bg-opacity-20`
-                : `${navlinkClass} text-icon-color`
+                : `${navlinkClass} text-icon-color hover:bg-[#1976d2] hover:bg-opacity-20 hover:text-[#1976d2]`
             }
           >
             <span>{link.icon}</span>

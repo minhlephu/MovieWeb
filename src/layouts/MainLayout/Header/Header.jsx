@@ -6,8 +6,8 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
-
-import { MdArrowDropDown, MdArrowRight } from "react-icons/md";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from "react-router-dom";
 const Menu = [
   {
@@ -109,7 +109,7 @@ export function StickyNavbar() {
           <div>
             <button className="dropbtn bg-[#f9f9f9]" onClick={toggleSubmenu}>
               <span className="span1">{text}</span>
-              <MdArrowDropDown className="icon" />
+              <KeyboardArrowDownIcon className="icon" />
             </button>
 
             <div className={`dropdown-content ${submenuVisible ? "show" : ""}`}>
@@ -118,7 +118,7 @@ export function StickyNavbar() {
                   <div className="sub-menu">
                     <button className="sub-menu-trigger">
                       <span className="span1">{e.title}</span>
-                      <MdArrowRight className="icon" />
+                      <KeyboardArrowRightIcon className="icon" />
                     </button>
                     <div className="sub-menu-content">
                       {e.Rap.map((item) => (

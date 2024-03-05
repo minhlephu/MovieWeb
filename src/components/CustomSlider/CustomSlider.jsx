@@ -29,18 +29,6 @@ const images = [
     id: 6,
     url: "https://ivcdn.vnecdn.net/giaitri/images/web/2024/01/10/trailer-phim-mai-cua-tran-thanh-1704879349.jpg"
   },
-  // {
-  //   id: 7,
-  //   url: "https://ivcdn.vnecdn.net/giaitri/images/web/2024/01/10/trailer-phim-mai-cua-tran-thanh-1704879349.jpg"
-  // },
-  // {
-  //   id: 8,
-  //   url: "https://ivcdn.vnecdn.net/giaitri/images/web/2024/01/10/trailer-phim-mai-cua-tran-thanh-1704879349.jpg"
-  // },
-  // {
-  //   id: 9,
-  //   url: "https://ivcdn.vnecdn.net/giaitri/images/web/2024/01/10/trailer-phim-mai-cua-tran-thanh-1704879349.jpg"
-  // },
 ] 
 
 const CustomSlide = (props) => {

@@ -1,5 +1,31 @@
 .container-detail {
-  width: 980px;
-  max-width: 100%;
-  margin: auto;
+  margin-top: 110px;
+  border-bottom: 1px #fff solid;
+
+  .form-commment {
+    margin: 10px 0 30px;
+    border: 1px #ccc solid;
+
+    .score-star {
+      border-right: 1px #ccc solid;
+    }
+
+    #txtComment {
+      resize: none;
+    }
+
+    .btn-send-comment {
+      background-color: var(--primary-color);
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  .score_etc {
+    font-size: 13px;
+    color: #666;
+    top: -26px;
+    right: 0;
+  }
 }

@@ -1,64 +1,170 @@
-import React from 'react';
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Textarea,
-  Typography,
-} from "@material-tailwind/react";
- 
-const MovieAddNew = () => {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(!open);
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import PropTypes from "prop-types";
+import Input from "../../../components/input/Input";
+import FromGroup from "../../../components/common/FromGroup";
+import { Label } from "../../../components/label";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 1000,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  marginTop: 30,
+};
+const schema = yup.object({
+  name: yup.string().required("This field is required"),
+  password: yup
+    .string()
+    .required("This field is required")
+    .min(8, "Password must be 8 character "),
+});
+const MovieAddNew = ({ isOpen, onClose }) => {
+  const {
+    control,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onSubmit",
+  });
   return (
-    <>
-    <Dialog open={open} size="xl">
-        <div className="flex items-center justify-between">
-          <DialogHeader className="flex flex-col items-start">
-            {" "}
-            <Typography className="mb-1" variant="h4">
-              New message to @{" "}
+    <div>
+      <Button onClick={isOpen}>Open modal</Button>
+      <Modal
+        open={open}
+        onClose={onClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="overflow-scroll mt-24"
+      >
+        <Box sx={style}>
+          <form>
+          <FromGroup>
+          <Label htmlFor="name">Tên đăng nhập *</Label>
+          <Input
+            control={control}
+            name="name"
+            placeholder="Tên đăng nhập"
+          ></Input>
+        </FromGroup>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
             </Typography>
-          </DialogHeader>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="mr-3 h-5 w-5"
-            onClick={handleOpen}
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        <DialogBody>
-          <Typography className="mb-10 -mt-7 " color="gray" variant="lead">
-            Write the message and then click button.
-          </Typography>
-          <div className="grid gap-6">
-            <Typography className="-mb-1" color="blue-gray" variant="h6">
-              Username
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
             </Typography>
-            <Input label="Username" />
-            <Textarea label="Message" />
-          </div>
-        </DialogBody>
-        <DialogFooter className="space-x-2">
-          <Button variant="text" color="gray" onClick={handleOpen}>
-            cancel
-          </Button>
-          <Button variant="gradient" color="gray" onClick={handleOpen}>
-            send message
-          </Button>
-        </DialogFooter>
-      </Dialog>
-    </>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            value
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </form>
+        </Box>
+      </Modal>
+    </div>
   );
-}
+};
+MovieAddNew.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+};
 export default MovieAddNew;

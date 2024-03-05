@@ -1,166 +1,57 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { DatePicker, Input, Modal, Typography } from "antd";
 import PropTypes from "prop-types";
-import Input from "../../../components/input/Input";
 import FromGroup from "../../../components/common/FromGroup";
 import { Label } from "../../../components/label";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 1000,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  marginTop: 30,
-};
-const schema = yup.object({
-  name: yup.string().required("This field is required"),
-  password: yup
-    .string()
-    .required("This field is required")
-    .min(8, "Password must be 8 character "),
-});
+import TextArea from "antd/es/input/TextArea";
 const MovieAddNew = ({ isOpen, onClose }) => {
-  const {
-    control,
-  } = useForm({
-    resolver: yupResolver(schema),
-    mode: "onSubmit",
-  });
   return (
-    <div>
-      <Button onClick={isOpen}>Open modal</Button>
+    <>
       <Modal
-        open={open}
-        onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className="overflow-scroll mt-24"
+        title="Thêm phim mới"
+        open={isOpen}
+        onOk={onClose}
+        onCancel={onClose}
+        width={800}
       >
-        <Box sx={style}>
-          <form>
+        <form>
           <FromGroup>
-          <Label htmlFor="name">Tên đăng nhập *</Label>
-          <Input
-            control={control}
-            name="name"
-            placeholder="Tên đăng nhập"
-          ></Input>
-        </FromGroup>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            value
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </form>
-        </Box>
+            <Label htmlFor="name">Tên phim *</Label>
+            <Input name="name" placeholder="Tên phim" />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="trailer">Trailer *</Label>
+            <Input name="trailer" placeholder="Trailer" />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="summary">Mô tả *</Label>
+            <TextArea rows={4} name="summary" placeholder="Mô tả phim" />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="summary">Ngày khởi chiếu *</Label>
+            <DatePicker style={{ zIndex: 10000 }} />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="actors">Diễn Viên *</Label>
+            <Input name="actors" placeholder="Tên diễn viên" />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="directors">Đạo diễn *</Label>
+            <Input name="directors" placeholder="Tên đạo diễn" />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="country">Nước sản xuất *</Label>
+            <Input name="country" placeholder="Nước sản xuất" />
+          </FromGroup>
+          <FromGroup>
+            <Label htmlFor="language">Ngôn ngữ *</Label>
+            <Input name="language" placeholder="Nước sản xuất" />
+          </FromGroup>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </form>
       </Modal>
-    </div>
+    </>
   );
 };
 MovieAddNew.propTypes = {

@@ -1,4 +1,4 @@
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import IconProfile from "../../../components/icons/IconProfile";
 import IconLogout from "../../../components/icons/IconLogout";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
@@ -9,27 +9,32 @@ const sidebarLinks = [
   {
     icon: <LiveTvOutlinedIcon></LiveTvOutlinedIcon>,
     title: "Quản lý phim",
-    url: "/admin/movieManage",
+    url: "/admin/movie-manage",
   },
   {
     icon: <TheatersOutlinedIcon></TheatersOutlinedIcon>,
     title: "Quản lý rạp",
-    url: "/cinema",
+    url: "/admin/cinema-manage",
+  },
+  {
+    icon: <TheatersOutlinedIcon></TheatersOutlinedIcon>,
+    title: "Quản lý phòng chiếu",
+    url: "/admin/theater-manage",
   },
   {
     icon: <CalendarMonthOutlinedIcon></CalendarMonthOutlinedIcon>,
     title: "Quản lý lịch chiếu",
-    url: "/show",
+    url: "/admin/show-manage",
   },
   {
     icon: <ScheduleOutlinedIcon></ScheduleOutlinedIcon>,
     title: "Quản lý TimeFrame",
-    url: "/timeframe",
+    url: "/admin/timeframe-manage",
   },
   {
     icon: <IconProfile></IconProfile>,
     title: "Quản lý người dùng",
-    url: "/user",
+    url: "/admin/user-manage",
   },
   {
     icon: <IconLogout></IconLogout>,

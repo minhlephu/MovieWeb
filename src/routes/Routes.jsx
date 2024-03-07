@@ -1,10 +1,17 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { HomePage, DetailPage } from "../pages/index";
+import {
+  HomePage,
+  DetailPage,
+  MovieManage,
+  CinemaManage,
+  ShowManage,
+  TheaterManage,
+  TimeFrameManage,
+  UserManage,
+} from "../pages/index";
 import pathRoute from "../util/pathRoute";
 import LayoutAuthentication from "../layouts/LayoutAuthentication";
 import LayoutAdmin from "../layouts/AdminLayout/LayoutAdmin";
-import MovieManage from "../pages/Admin/Movie/MovieManage";
-import MovieAddNew from "../pages/Admin/Movie/MovieAddNew";
 
 const router = createBrowserRouter([
   {
@@ -22,16 +29,33 @@ const router = createBrowserRouter([
   {
     path: pathRoute.ADMIN,
     element: <LayoutAdmin></LayoutAdmin>,
-    children:[{
-      path:"movieManage",
-      element:<MovieManage></MovieManage>
-    },{
-      path:"add-movie",
-      element:<MovieAddNew/>
-    }
-    ]
+    children: [
+      {
+        path: "movie-manage",
+        element: <MovieManage></MovieManage>,
+      },
+      {
+        path: "cinema-manage",
+        element: <CinemaManage />,
+      },
+      {
+        path: "show-manage",
+        element: <ShowManage />,
+      },
+      {
+        path: "theater-manage",
+        element: <TheaterManage />,
+      },
+      {
+        path: "timeframe-manage",
+        element: <TimeFrameManage />,
+      },
+      {
+        path: "user-manage",
+        element: <UserManage />,
+      },
+    ],
   },
-  
 ]);
 
 const Routes = () => <RouterProvider router={router} />;

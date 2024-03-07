@@ -1,12 +1,12 @@
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Card, CardHeader, Typography, Button } from "@material-tailwind/react";
-import { Select, Table, Input} from "antd";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Select, Table, Input } from "antd";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 const { Search } = Input;
 import qs from "qs";
-import MovieAddNew from "./MovieAddNew";
 import { useEffect, useState } from "react";
+import UserAddNew from "./UserAddNew";
 
 const columns = [
   {
@@ -38,12 +38,20 @@ const columns = [
   {
     title: "Sửa",
     dataIndex: "sua",
-    render: () => <a><EditIcon></EditIcon></a>,
+    render: () => (
+      <a>
+        <EditIcon></EditIcon>
+      </a>
+    ),
   },
   {
-    title: 'Xóa',
+    title: "Xóa",
     dataIndex: "xoa",
-    render: () => <a><DeleteIcon></DeleteIcon></a>,
+    render: () => (
+      <a>
+        <DeleteIcon></DeleteIcon>
+      </a>
+    ),
   },
 ];
 const getRandomuserParams = (params) => ({
@@ -51,7 +59,7 @@ const getRandomuserParams = (params) => ({
   page: params.pagination?.current,
   ...params,
 });
-const MovieManage = () => {
+const UserManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
   const handleNewMovie = () => {
     setAddNewModalOpen(true);
@@ -186,12 +194,12 @@ const MovieManage = () => {
         />
       </Card>
       {isAddNewModalOpen && (
-        <MovieAddNew
+        <UserAddNew
           isOpen={isAddNewModalOpen}
           onClose={handleCloseModal}
-        ></MovieAddNew>
+        ></UserAddNew>
       )}
     </>
   );
 };
-export default MovieManage;
+export default UserManage;

@@ -31,10 +31,16 @@ const props = {
     }
   },
 };
-const handleChange = (value) => {
+const onChange = (value) => {
   console.log(`selected ${value}`);
 };
+const onSearch = (value) => {
+  console.log("search:", value);
+};
 
+// Filter `option.label` match the user type `input`
+const filterOption = (input, option) =>
+  (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 const MovieAddNew = ({ isOpen, onClose }) => {
   return (
     <>
@@ -139,39 +145,27 @@ const MovieAddNew = ({ isOpen, onClose }) => {
           <FromGroup>
             <Label htmlFor="country">Nước sản xuất *</Label>
             <Select
-              defaultValue="lucy"
+              showSearch
+              placeholder="Select a person"
+              optionFilterProp="children"
+              onChange={onChange}
+              onSearch={onSearch}
+              filterOption={filterOption}
               style={{
                 width: 200,
               }}
-              onChange={handleChange}
               options={[
                 {
-                  label: <span>manager</span>,
-                  title: "manager",
-                  options: [
-                    {
-                      label: <span>Jack</span>,
-                      value: "Jack",
-                    },
-                    {
-                      label: <span>Lucy</span>,
-                      value: "Lucy",
-                    },
-                  ],
+                  value: "jack",
+                  label: "Jack",
                 },
                 {
-                  label: <span>engineer</span>,
-                  title: "engineer",
-                  options: [
-                    {
-                      label: <span>Chloe</span>,
-                      value: "Chloe",
-                    },
-                    {
-                      label: <span>Lucas</span>,
-                      value: "Lucas",
-                    },
-                  ],
+                  value: "lucy",
+                  label: "Lucy",
+                },
+                {
+                  value: "tom",
+                  label: "Tom",
                 },
               ]}
             />
@@ -179,39 +173,27 @@ const MovieAddNew = ({ isOpen, onClose }) => {
           <FromGroup>
             <Label htmlFor="language">Ngôn ngữ *</Label>
             <Select
-              defaultValue="lucy"
+              showSearch
+              placeholder="Select a person"
+              optionFilterProp="children"
+              onChange={onChange}
+              onSearch={onSearch}
+              filterOption={filterOption}
               style={{
                 width: 200,
               }}
-              onChange={handleChange}
               options={[
                 {
-                  label: <span>manager</span>,
-                  title: "manager",
-                  options: [
-                    {
-                      label: <span>Jack</span>,
-                      value: "Jack",
-                    },
-                    {
-                      label: <span>Lucy</span>,
-                      value: "Lucy",
-                    },
-                  ],
+                  value: "jack",
+                  label: "Jack",
                 },
                 {
-                  label: <span>engineer</span>,
-                  title: "engineer",
-                  options: [
-                    {
-                      label: <span>Chloe</span>,
-                      value: "Chloe",
-                    },
-                    {
-                      label: <span>Lucas</span>,
-                      value: "Lucas",
-                    },
-                  ],
+                  value: "lucy",
+                  label: "Lucy",
+                },
+                {
+                  value: "tom",
+                  label: "Tom",
                 },
               ]}
             />
@@ -219,39 +201,27 @@ const MovieAddNew = ({ isOpen, onClose }) => {
           <FromGroup>
             <Label htmlFor="language">Thể Loại *</Label>
             <Select
-              defaultValue="lucy"
+              showSearch
+              placeholder="Select a person"
+              optionFilterProp="children"
+              onChange={onChange}
+              onSearch={onSearch}
+              filterOption={filterOption}
               style={{
                 width: 200,
               }}
-              onChange={handleChange}
               options={[
                 {
-                  label: <span>manager</span>,
-                  title: "manager",
-                  options: [
-                    {
-                      label: <span>Jack</span>,
-                      value: "Jack",
-                    },
-                    {
-                      label: <span>Lucy</span>,
-                      value: "Lucy",
-                    },
-                  ],
+                  value: "jack",
+                  label: "Jack",
                 },
                 {
-                  label: <span>engineer</span>,
-                  title: "engineer",
-                  options: [
-                    {
-                      label: <span>Chloe</span>,
-                      value: "Chloe",
-                    },
-                    {
-                      label: <span>Lucas</span>,
-                      value: "Lucas",
-                    },
-                  ],
+                  value: "lucy",
+                  label: "Lucy",
+                },
+                {
+                  value: "tom",
+                  label: "Tom",
                 },
               ]}
             />

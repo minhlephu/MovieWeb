@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { HomePage, DetailPage, BookTicket } from "../pages/index";
 import {
   HomePage,
   DetailPage,
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         element: <UserManage />,
       },
     ],
+  },
+  {
+    path: pathRoute.BOOKTICKETS,
+    element: <BookTicket />,
   },
 ]);
 

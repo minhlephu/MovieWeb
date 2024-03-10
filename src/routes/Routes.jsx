@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { HomePage, DetailPage } from "../pages/index";
+import { HomePage, DetailPage, BookTicket } from "../pages/index";
 import pathRoute from "../util/pathRoute";
 import LayoutAuthentication from "../layouts/LayoutAuthentication";
 import LayoutAdmin from "../layouts/AdminLayout/LayoutAdmin";
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: pathRoute.ADMIN,
     element: <LayoutAdmin></LayoutAdmin>,
+  },
+  {
+    path: pathRoute.BOOKTICKETS,
+    element: <BookTicket />,
   },
 ]);
 

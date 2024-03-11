@@ -13,7 +13,7 @@ import {
   UPDATE_TIMEFRAME_SUCCESS,
 } from "../constrants/TimeFrame";
 
-export const getTimeFrameList = () => {
+export const getTimeFrameListAction = () => {
   return async (dispatch) => {
     dispatch({
       type: GET_TIMEFRAME_LIST_REQUEST,
@@ -37,7 +37,7 @@ export const getTimeFrameList = () => {
   };
 };
 
-export const updateTimeFrame = (timeFrame) => {
+export const updateTimeFrameAction = (timeFrame) => {
   return async (dispatch) => {
     dispatch({
       type: UPDATE_TIMEFRAME_REQUEST,
@@ -63,7 +63,7 @@ export const updateTimeFrame = (timeFrame) => {
   };
 };
 
-export const addTimeFrame = (timeFrame) => {
+export const addTimeFrameAction = (timeFrame) => {
   return async (dispatch) => {
     dispatch({
       type: ADD_TIMEFRAME_REQUEST,
@@ -89,7 +89,7 @@ export const addTimeFrame = (timeFrame) => {
   };
 };
 
-export const deleteTimeFrame = (id) => {
+export const deleteTimeFrameAction = (id) => {
   return async (dispatch) => {
     dispatch({
       type: DELETE_TIMEFRAME_REQUEST,

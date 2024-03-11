@@ -138,7 +138,7 @@ const TheaterManage = () => {
                 size="sm"
                 onClick={handleNewMovie}
               >
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Thêm phòng 
+                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Thêm phòng
               </Button>
             </div>
           </div>

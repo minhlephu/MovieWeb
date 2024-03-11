@@ -90,6 +90,8 @@ const TimeFrameReducer = (state = initialState, action) => {
         errorUpdateTimeFrame: action.payload.errorr,
       };
     }
+    default:
+      return state;
   }
 };
 

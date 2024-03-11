@@ -6,4 +6,3 @@ export { default as ShowManage } from "./Admin/Show/ShowManage";
 export { default as TheaterManage } from "./Admin/Theater/TheaterManage";
 export { default as TimeFrameManage } from "./Admin/TimeFrame/TimeFrameManage";
 export { default as UserManage } from "./Admin/User/UserManage";
-

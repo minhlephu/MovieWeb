@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import Countdown, { zeroPad } from "react-countdown";
 
-const Countdown = () => {
+const TimeCountdown = () => {
   const setTimeCount = useMemo(() => {
-    return Date.now() + 3000000;
+    return Date.now() + 300000;
   }, []);
 
   const style = {
@@ -25,4 +25,4 @@ const Countdown = () => {
   );
 };
 
-export default Countdown;
+export default TimeCountdown;

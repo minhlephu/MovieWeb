@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { HomePage, DetailPage, BookTicket } from "../pages/index";
 import {
   HomePage,
+  BookTicket,
   DetailPage,
   MovieManage,
   CinemaManage,
@@ -25,15 +25,15 @@ const router = createBrowserRouter([
   },
   {
     path: pathRoute.SIGNIN,
-    element: <LayoutAuthentication></LayoutAuthentication>,
+    element: <LayoutAuthentication />,
   },
   {
     path: pathRoute.ADMIN,
-    element: <LayoutAdmin></LayoutAdmin>,
+    element: <LayoutAdmin />,
     children: [
       {
         path: "movie-manage",
-        element: <MovieManage></MovieManage>,
+        element: <MovieManage />,
       },
       {
         path: "cinema-manage",

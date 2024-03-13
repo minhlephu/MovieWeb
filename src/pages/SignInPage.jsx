@@ -10,7 +10,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { signInAction } from "../redux/actions/AuthAction";
 import { useEffect } from "react";
-import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   password: yup
@@ -20,30 +21,19 @@ const schema = yup.object({
 });
 const SignInPage = () => {
   const { currentUser, errorLogin } = useSelector((state) => state.AuthReducer);
+  const navigate = useNavigate();
+
   useEffect(() => {
     // đăng nhập thành công thì quay về trang trước đó
     if (currentUser) {
-      Swal.fire({
-        title: "Đăng nhập thành công!",
-        icon: "success",
-        html: "Thông báo tự động tắt sau 2 giây",
-        timer: 2000,
-        timerProgressBar: true,
-        confirmButtonText: "Ok",
-      });
+      toast.success("Đăng nhập thành công");
+      navigate("/");
     }
   }, [currentUser]);
   useEffect(() => {
     // đăng nhập thành công thì quay về trang trước đó
     if (errorLogin == 101) {
-      Swal.fire({
-        title: "Tài khoản hoặc mật khẩu không đúng!",
-        icon: "error",
-        html: "Thông báo tự động tắt sau 2 giây",
-        timer: 2000,
-        timerProgressBar: true,
-        confirmButtonText: "Ok",
-      });
+      toast.error("Tài khoản hoặc mật khẩu không đúng")
     }
   }, [errorLogin]);
 

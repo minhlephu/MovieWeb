@@ -6,11 +6,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const { Search } = Input;
 import qs from "qs";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import TimeFrameAddNew from "./TimeFrameAddNew";
+import { getTimeFrameListAction } from "../../../redux/actions/TimeFrame";
 const columns = [
   {
     title: "ID",
-    dataIndex: "id",
+    dataIndex: "timeFrameID",
     sorter: true,
     width: "20%",
   },
@@ -46,11 +48,15 @@ const columns = [
   },
 ];
 const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
+  current: params.pagination?.current,
+  pageSize: params.pagination?.pageSize,
 });
 const TimeFrameManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
+  let { timeFrameList } = useSelector(
+    (state) => state.TimeFrameReducer
+  );
+  const dispatch = useDispatch();
   const handleNewMovie = () => {
     setAddNewModalOpen(true);
   };
@@ -67,41 +73,31 @@ const TimeFrameManage = () => {
   });
   const fetchData = () => {
     setLoading(true);
-    console.log("test1",tableParams);
-    console.log("test",qs.stringify(
-      tableParams))
-
-    console.log("test2",qs.stringify(
-      getRandomuserParams(tableParams)));
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
-      });
-
+    const param = qs.stringify(getRandomuserParams(tableParams));
+    console.log(param);
+    dispatch(getTimeFrameListAction(param));
   };
   useEffect(() => {
     fetchData();
+    if (timeFrameList) {
+      console.log("listdata",timeFrameList);
+      setData(timeFrameList);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: 200,
+          // 200 is mock data, you should read it from server
+          // total: data.totalCount,
+        },
+      });
+    }
   }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleTableChange = (pagination, filters) => {
     setTableParams({
       pagination,
       filters,
-      ...sorter,
     });
 
     // `dataSource` is useless since `pageSize` changed
@@ -179,7 +175,7 @@ const TimeFrameManage = () => {
         </CardHeader>
         <Table
           columns={columns}
-          rowKey={(record) => record.login.uuid}
+          rowKey={(record) => record.timeFrameID}
           dataSource={data}
           pagination={tableParams.pagination}
           loading={loading}

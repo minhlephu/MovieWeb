@@ -1,5 +1,6 @@
 import ModalTrailer from "../../components/ModalTrailer/ModalTrailer";
 import ListMovie from "../../components/Movie/ListMovie";
+import Footer from "../../layouts/MainLayout/Footer";
 import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
 import Carousel from "./Carousel/Carousel";
 import {
@@ -57,6 +58,7 @@ const HomePage = () => {
         </Tabs>
 
         <ModalTrailer></ModalTrailer>
+        <Footer></Footer>
       </div>
     </>
   );

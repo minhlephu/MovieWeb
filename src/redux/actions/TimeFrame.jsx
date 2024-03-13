@@ -13,16 +13,16 @@ import {
   UPDATE_TIMEFRAME_SUCCESS,
 } from "../constrants/TimeFrame";
 
-export const getTimeFrameListAction = () => {
+export const getTimeFrameListAction = (param) => {
   return async (dispatch) => {
     dispatch({
       type: GET_TIMEFRAME_LIST_REQUEST,
     });
     try {
-      const result = await timeFrameService.getListTimeFrame();
+      const result = await timeFrameService.getListTimeFrame(param);
       dispatch({
         type: GET_TIMEFRAME_LIST_SUCCESS,
-        payload: { data: result.data.data },
+        payload: { data: result.data},
       });
     } catch (error) {
       dispatch({

@@ -11,7 +11,7 @@ import {
 } from "../constrants/Auth";
 
 const currentUser = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
+  ? localStorage.getItem("user")
   : null;
 const initialState = {
   currentUser: currentUser,

@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
   HomePage,
+  BookTicket,
   DetailPage,
   MovieManage,
   CinemaManage,
@@ -25,15 +26,15 @@ const router = createBrowserRouter([
   },
   {
     path: pathRoute.SIGNIN,
-    element: <LayoutAuthentication></LayoutAuthentication>,
+    element: <LayoutAuthentication />,
   },
   {
     path: pathRoute.ADMIN,
-    element: <LayoutAdmin></LayoutAdmin>,
+    element: <LayoutAdmin />,
     children: [
       {
         path: "movie-manage",
-        element: <MovieManage></MovieManage>,
+        element: <MovieManage />,
       },
       {
         path: "cinema-manage",
@@ -58,8 +59,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:"add-new-timeFrame",
-    element: <TimeFrameAddNew></TimeFrameAddNew>,
+    path: pathRoute.BOOKTICKETS,
+    element: <BookTicket />,
   },
 ]);
 

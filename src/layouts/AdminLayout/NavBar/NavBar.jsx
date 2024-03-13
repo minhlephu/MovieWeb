@@ -23,7 +23,7 @@ const sidebarLinks = [
   },
   {
     icon: <CalendarMonthOutlinedIcon></CalendarMonthOutlinedIcon>,
-    title: "Quản lý lịch chiếu",
+    title: "Quản lý suất chiếu",
     url: "/admin/show-manage",
   },
   {

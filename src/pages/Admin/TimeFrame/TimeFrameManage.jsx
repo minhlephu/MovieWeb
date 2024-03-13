@@ -7,33 +7,22 @@ const { Search } = Input;
 import qs from "qs";
 import { useEffect, useState } from "react";
 import TimeFrameAddNew from "./TimeFrameAddNew";
-
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
+    title: "ID",
+    dataIndex: "id",
     sorter: true,
-    render: (name) => `${name.first} ${name.last}`,
     width: "20%",
   },
   {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      {
-        text: "Male",
-        value: "male",
-      },
-      {
-        text: "Female",
-        value: "female",
-      },
-    ],
+    title: "StartTime",
+    dataIndex: "startTime",
     width: "20%",
   },
   {
-    title: "Email",
-    dataIndex: "email",
+    title: "EndTime",
+    dataIndex: "endTime",
+    width: "20%",
   },
   {
     title: "Sửa",
@@ -43,6 +32,7 @@ const columns = [
         <EditIcon></EditIcon>
       </a>
     ),
+    width: "20%",
   },
   {
     title: "Xóa",
@@ -52,12 +42,12 @@ const columns = [
         <DeleteIcon></DeleteIcon>
       </a>
     ),
+    width: "20%",
   },
 ];
 const getRandomuserParams = (params) => ({
   results: params.pagination?.pageSize,
   page: params.pagination?.current,
-  ...params,
 });
 const TimeFrameManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
@@ -77,6 +67,12 @@ const TimeFrameManage = () => {
   });
   const fetchData = () => {
     setLoading(true);
+    console.log("test1",tableParams);
+    console.log("test",qs.stringify(
+      tableParams))
+
+    console.log("test2",qs.stringify(
+      getRandomuserParams(tableParams)));
     fetch(
       `https://randomuser.me/api?${qs.stringify(
         getRandomuserParams(tableParams)
@@ -96,6 +92,7 @@ const TimeFrameManage = () => {
           },
         });
       });
+
   };
   useEffect(() => {
     fetchData();
@@ -123,10 +120,10 @@ const TimeFrameManage = () => {
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Danh sách phim
+                Danh sách TimeFrame
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                Xem thông tin tất cả các phim
+                Xem thông tin tất cả các TimeFrame
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -138,7 +135,7 @@ const TimeFrameManage = () => {
                 size="sm"
                 onClick={handleNewMovie}
               >
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Thêm phim
+                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Thêm
               </Button>
             </div>
           </div>

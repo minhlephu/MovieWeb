@@ -13,6 +13,7 @@ import {
 import pathRoute from "../util/pathRoute";
 import LayoutAuthentication from "../layouts/LayoutAuthentication";
 import LayoutAdmin from "../layouts/AdminLayout/LayoutAdmin";
+import TimeFrameAddNew from "../pages/Admin/TimeFrame/TimeFrameAddNew";
 
 const router = createBrowserRouter([
   {

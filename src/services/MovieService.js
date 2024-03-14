@@ -1,8 +1,11 @@
 import { baseService } from "./baseService";
 
 export class MovieServie extends baseService{
-    getListMovie =()=>{
-        return this.get(`/Movie/Movies`);
+    getListMovie =(param)=>{
+        return this.get(`Movie/Movies?${param}`);
+    }
+    createMovie = (movie)=>{
+        return this.post(`Movie/CreateMovie`,movie)
     }
 }
 

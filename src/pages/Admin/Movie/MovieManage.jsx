@@ -1,55 +1,132 @@
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Card, CardHeader, Typography, Button } from "@material-tailwind/react";
-import { Select, Table, Input} from "antd";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Select, Table, Input } from "antd";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 const { Search } = Input;
 import qs from "qs";
 import MovieAddNew from "./MovieAddNew";
 import { useEffect, useState } from "react";
+import { movieSevice } from "../../../services/MovieService";
 
 const columns = [
   {
+    title: "ID",
+    dataIndex: "movieID",
+    width: 100,
+    fixed: "left",
+  },
+  {
     title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: (name) => `${name.first} ${name.last}`,
-    width: "20%",
+    dataIndex: "movieName",
+    width: 100,
+    fixed: "left",
   },
   {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      {
-        text: "Male",
-        value: "male",
-      },
-      {
-        text: "Female",
-        value: "female",
-      },
-    ],
-    width: "20%",
+    title: "Trailer",
+    dataIndex: "trailer",
+    width: 100,
   },
   {
-    title: "Email",
-    dataIndex: "email",
+    title: "Mô tả",
+    dataIndex: "summary",
+    width: 100,
+  },
+  {
+    title: "Ngày khởi chiếu",
+    dataIndex: "releaseDate",
+    width: 100,
+  },
+  {
+    title: "Thời lượng phim",
+    dataIndex: "duration",
+    width: 100,
+  },
+  {
+    title: "Sắp chiếu",
+    dataIndex: "commingSoon",
+    width: 100,
+    key: "commingSoon",
+    render: (commingSoon) => <span>{commingSoon ? "Yes" : "No"}</span>,
+  },
+  {
+    title: "Đang chiếu",
+    dataIndex: "showNow",
+    width: 100,
+    key: "showNow",
+    render: (showNow) => <span>{showNow ? "Yes" : "No"}</span>,
+  },
+  {
+    title: "Phim hot",
+    dataIndex: "hot",
+    width: 100,
+    key: "hot",
+    render: (hot) => <span>{hot ? "Yes" : "No"}</span>,
+  },
+  {
+    title: "Diễn viên",
+    dataIndex: "actors",
+    width: 100,
+  },
+  {
+    title: "Trailer",
+    dataIndex: "trailer",
+    width: 100,
+  },
+  {
+    title: "Đạo diễn",
+    dataIndex: "directors",
+    width: 100,
+  },
+  {
+    title: "Poster",
+    dataIndex: "poster",
+    width: 100,
+  },
+  {
+    title: "Ảnh",
+    dataIndex: "image",
+    width: 100,
+  },
+  {
+    title: "Quốc gia",
+    dataIndex: "country",
+    width: 100,
+  },
+  {
+    title: "Ngôn ngữ",
+    dataIndex: "language",
+    width: 100,
+  },
+  {
+    title: "Thể loại",
+    dataIndex: "genreID",
+    width: 100,
   },
   {
     title: "Sửa",
     dataIndex: "sua",
-    render: () => <a><EditIcon></EditIcon></a>,
+    width: 100,
+    render: () => (
+      <a>
+        <EditIcon></EditIcon>
+      </a>
+    ),
   },
   {
-    title: 'Xóa',
+    title: "Xóa",
     dataIndex: "xoa",
-    render: () => <a><DeleteIcon></DeleteIcon></a>,
+    width: 100,
+    render: () => (
+      <a>
+        <DeleteIcon></DeleteIcon>
+      </a>
+    ),
   },
 ];
 const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
+  current: params.pagination?.current,
+  pageSize: params.pagination?.pageSize,
 });
 const MovieManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
@@ -69,25 +146,20 @@ const MovieManage = () => {
   });
   const fetchData = () => {
     setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
+    const param = qs.stringify(getRandomuserParams(tableParams));
+    movieSevice.getListMovie(param).then((result) => {
+      setData(result.data.items);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: result.data.totalCount,
+          // 200 is mock data, you should read it from server
+          // total: data.totalCount,
+        },
       });
+    });
   };
   useEffect(() => {
     fetchData();
@@ -174,13 +246,14 @@ const MovieManage = () => {
         </CardHeader>
         <Table
           columns={columns}
-          rowKey={(record) => record.login.uuid}
+          rowKey={(record) => record.movieID}
           dataSource={data}
           pagination={tableParams.pagination}
           loading={loading}
           onChange={handleTableChange}
-          style={{ padding: 24 }}
+          style={{ padding: 24, maxWidth: 1180 }}
           scroll={{
+            x: 1180,
             y: 360,
           }}
         />

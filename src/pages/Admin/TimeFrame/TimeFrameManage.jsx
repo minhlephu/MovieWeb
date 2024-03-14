@@ -6,9 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const { Search } = Input;
 import qs from "qs";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import TimeFrameAddNew from "./TimeFrameAddNew";
-import { getTimeFrameListAction } from "../../../redux/actions/TimeFrame";
+import { timeFrameService } from "../../../services/TimeFrameService";
 const columns = [
   {
     title: "ID",
@@ -53,17 +52,14 @@ const getRandomuserParams = (params) => ({
 });
 const TimeFrameManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
-  let { timeFrameList } = useSelector(
-    (state) => state.TimeFrameReducer
-  );
-  const dispatch = useDispatch();
   const handleNewMovie = () => {
     setAddNewModalOpen(true);
   };
   const handleCloseModal = () => {
     setAddNewModalOpen(false);
+    fetchData();
   };
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -74,25 +70,23 @@ const TimeFrameManage = () => {
   const fetchData = () => {
     setLoading(true);
     const param = qs.stringify(getRandomuserParams(tableParams));
-    console.log(param);
-    dispatch(getTimeFrameListAction(param));
+      timeFrameService.getListTimeFrame(param)
+      .then(( result ) => {
+        setData(result.data.items);
+        setLoading(false);
+        setTableParams({
+          ...tableParams,
+          pagination: {
+            ...tableParams.pagination,
+            total:result.data.totalCount,
+            // 200 is mock data, you should read it from server
+            // total: data.totalCount,
+          },
+        });
+      });
   };
   useEffect(() => {
     fetchData();
-    if (timeFrameList) {
-      console.log("listdata",timeFrameList);
-      setData(timeFrameList);
-      setLoading(false);
-      setTableParams({
-        ...tableParams,
-        pagination: {
-          ...tableParams.pagination,
-          total: 200,
-          // 200 is mock data, you should read it from server
-          // total: data.totalCount,
-        },
-      });
-    }
   }, [JSON.stringify(tableParams)]);
   const handleTableChange = (pagination, filters) => {
     setTableParams({
@@ -173,6 +167,7 @@ const TimeFrameManage = () => {
             </div>
           </div>
         </CardHeader>
+        
         <Table
           columns={columns}
           rowKey={(record) => record.timeFrameID}

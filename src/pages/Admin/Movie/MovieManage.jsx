@@ -69,11 +69,6 @@ const columns = [
     width: 100,
   },
   {
-    title: "Trailer",
-    dataIndex: "trailer",
-    width: 100,
-  },
-  {
     title: "Đạo diễn",
     dataIndex: "directors",
     width: 100,
@@ -85,12 +80,7 @@ const columns = [
   },
   {
     title: "Ảnh",
-    dataIndex: "image",
-    width: 100,
-  },
-  {
-    title: "Quốc gia",
-    dataIndex: "country",
+    dataIndex: "images",
     width: 100,
   },
   {
@@ -138,6 +128,7 @@ const MovieManage = () => {
   };
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  // const [filterSearch,setFilterSearch] = useState("");
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -164,11 +155,10 @@ const MovieManage = () => {
   useEffect(() => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleTableChange = (pagination, filters) => {
     setTableParams({
       pagination,
       filters,
-      ...sorter,
     });
 
     // `dataSource` is useless since `pageSize` changed
@@ -235,7 +225,7 @@ const MovieManage = () => {
             />
             <div className="w-full md:w-72">
               <Search
-                placeholder="input search text"
+                placeholder="Tìm kiếm phim"
                 onSearch={onSearch}
                 style={{
                   width: 288,
@@ -251,7 +241,7 @@ const MovieManage = () => {
           pagination={tableParams.pagination}
           loading={loading}
           onChange={handleTableChange}
-          style={{ padding: 24, maxWidth: 1180 }}
+          style={{ padding: 24, maxWidth: 1228 }}
           scroll={{
             x: 1180,
             y: 360,

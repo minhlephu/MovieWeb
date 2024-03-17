@@ -24,6 +24,7 @@
     "@reduxjs/toolkit": "^2.2.1",
     "antd": "^5.15.0",
     "axios": "^1.6.7",
+    "dayjs": "^1.11.10",
     "flowbite-react": "^0.7.2",
     "jwt-decode": "^4.0.0",
     "prop-types": "^15.8.1",

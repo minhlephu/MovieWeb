@@ -2,6 +2,7 @@ import React from "react";
 import "./desktop.scss";
 import StepCheckout from "./StepCheckout/StepCheckout";
 import ListSeat from "../ListSeat/ListSeat";
+import PayMent from "../PayMent/PayMent";
 
 const Desktop = () => {
   return (
@@ -11,7 +12,7 @@ const Desktop = () => {
         <ListSeat />
       </div>
       <div className="book-right">
-        <p>Book right</p>
+        <PayMent />
       </div>
     </div>
   );

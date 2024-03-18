@@ -8,118 +8,122 @@ import qs from "qs";
 import MovieAddNew from "./MovieAddNew";
 import { useEffect, useState } from "react";
 import { movieSevice } from "../../../services/MovieService";
+import { Genre } from "../../../constrants/genre";
 
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "movieID",
-    width: 100,
-    fixed: "left",
-  },
-  {
-    title: "Name",
-    dataIndex: "movieName",
-    width: 100,
-    fixed: "left",
-  },
-  {
-    title: "Trailer",
-    dataIndex: "trailer",
-    width: 100,
-  },
-  {
-    title: "Mô tả",
-    dataIndex: "summary",
-    width: 100,
-  },
-  {
-    title: "Ngày khởi chiếu",
-    dataIndex: "releaseDate",
-    width: 100,
-  },
-  {
-    title: "Thời lượng phim",
-    dataIndex: "duration",
-    width: 100,
-  },
-  {
-    title: "Sắp chiếu",
-    dataIndex: "commingSoon",
-    width: 100,
-    key: "commingSoon",
-    render: (commingSoon) => <span>{commingSoon ? "Yes" : "No"}</span>,
-  },
-  {
-    title: "Đang chiếu",
-    dataIndex: "showNow",
-    width: 100,
-    key: "showNow",
-    render: (showNow) => <span>{showNow ? "Yes" : "No"}</span>,
-  },
-  {
-    title: "Phim hot",
-    dataIndex: "hot",
-    width: 100,
-    key: "hot",
-    render: (hot) => <span>{hot ? "Yes" : "No"}</span>,
-  },
-  {
-    title: "Diễn viên",
-    dataIndex: "actors",
-    width: 100,
-  },
-  {
-    title: "Đạo diễn",
-    dataIndex: "directors",
-    width: 100,
-  },
-  {
-    title: "Poster",
-    dataIndex: "poster",
-    width: 100,
-  },
-  {
-    title: "Ảnh",
-    dataIndex: "images",
-    width: 100,
-  },
-  {
-    title: "Ngôn ngữ",
-    dataIndex: "language",
-    width: 100,
-  },
-  {
-    title: "Thể loại",
-    dataIndex: "genreID",
-    width: 100,
-  },
-  {
-    title: "Sửa",
-    dataIndex: "sua",
-    width: 100,
-    render: () => (
-      <a>
-        <EditIcon></EditIcon>
-      </a>
-    ),
-  },
-  {
-    title: "Xóa",
-    dataIndex: "xoa",
-    width: 100,
-    render: () => (
-      <a>
-        <DeleteIcon></DeleteIcon>
-      </a>
-    ),
-  },
-];
-const getRandomuserParams = (params) => ({
-  current: params.pagination?.current,
-  pageSize: params.pagination?.pageSize,
-});
 const MovieManage = () => {
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "movieID",
+      width: 100,
+      fixed: "left",
+    },
+    {
+      title: "Name",
+      dataIndex: "movieName",
+      width: 100,
+      fixed: "left",
+    },
+    {
+      title: "Trailer",
+      dataIndex: "trailer",
+      width: 100,
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "summary",
+      width: 100,
+    },
+    {
+      title: "Ngày khởi chiếu",
+      dataIndex: "releaseDate",
+      width: 200,
+    },
+    {
+      title: "Thời lượng phim",
+      dataIndex: "duration",
+      width: 150,
+    },
+    {
+      title: "Sắp chiếu",
+      dataIndex: "commingSoon",
+      width: 120,
+      key: "commingSoon",
+      render: (commingSoon) => <span>{commingSoon ? "Yes" : "No"}</span>,
+    },
+    {
+      title: "Đang chiếu",
+      dataIndex: "showNow",
+      width: 120,
+      key: "showNow",
+      render: (showNow) => <span>{showNow ? "Yes" : "No"}</span>,
+    },
+    {
+      title: "Phim hot",
+      dataIndex: "hot",
+      width: 120,
+      key: "hot",
+      render: (hot) => <span>{hot ? "Yes" : "No"}</span>,
+    },
+    {
+      title: "Diễn viên",
+      dataIndex: "actors",
+      width: 100,
+    },
+    {
+      title: "Đạo diễn",
+      dataIndex: "directors",
+      width: 100,
+    },
+    {
+      title: "Poster",
+      dataIndex: "poster",
+      width: 200,
+    },
+    {
+      title: "Ảnh",
+      dataIndex: "images",
+      width: 200,
+    },
+    {
+      title: "Ngôn ngữ",
+      dataIndex: "language",
+      width: 100,
+    },
+    {
+      title: "Thể loại",
+      dataIndex: "genreID",
+      width: 100,
+      render: (genreID) => <span>{Genre[genreID]}</span>,
+    },
+    {
+      title: "Sửa",
+      dataIndex: "sua",
+      width: 100,
+      render: () => (
+        <a>
+          <EditIcon></EditIcon>
+        </a>
+      ),
+    },
+    {
+      title: "Xóa",
+      dataIndex: "xoa",
+      width: 100,
+      render: () => (
+        <a>
+          <DeleteIcon></DeleteIcon>
+        </a>
+      ),
+    },
+  ];
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
+  const [nameSearch, setNameSearch] = useState("");
+  const getRandomuserParams = (params) => ({
+    page: params.pagination?.current,
+    pageSize: params.pagination?.pageSize,
+    filter: nameSearch,
+  });
   const handleNewMovie = () => {
     setAddNewModalOpen(true);
   };
@@ -128,11 +132,10 @@ const MovieManage = () => {
   };
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-  // const [filterSearch,setFilterSearch] = useState("");
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
-      pageSize: 10,
+      pageSize: 15,
     },
   });
   const fetchData = () => {
@@ -155,10 +158,9 @@ const MovieManage = () => {
   useEffect(() => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters) => {
+  const handleTableChange = (pagination) => {
     setTableParams({
       pagination,
-      filters,
     });
 
     // `dataSource` is useless since `pageSize` changed
@@ -169,12 +171,15 @@ const MovieManage = () => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = (value) => {
+    setNameSearch(value);
+    fetchData();
+  };
   return (
     <>
       <Card className="h-full w-full !rounded-none !overflow-visible">
         <CardHeader floated={false} shadow={false} className="rounded-none p-3">
-          <div className="mb-8 flex items-center justify-between gap-8">
+          <div className="mb-4 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
                 Danh sách phim
@@ -212,15 +217,6 @@ const MovieManage = () => {
                   value: "lucy",
                   label: "Lucy",
                 },
-                {
-                  value: "Yiminghe",
-                  label: "yiminghe",
-                },
-                {
-                  value: "disabled",
-                  label: "Disabled",
-                  disabled: true,
-                },
               ]}
             />
             <div className="w-full md:w-72">
@@ -234,19 +230,21 @@ const MovieManage = () => {
             </div>
           </div>
         </CardHeader>
-        <Table
-          columns={columns}
-          rowKey={(record) => record.movieID}
-          dataSource={data}
-          pagination={tableParams.pagination}
-          loading={loading}
-          onChange={handleTableChange}
-          style={{ padding: 24, maxWidth: 1228 }}
-          scroll={{
-            x: 1180,
-            y: 360,
-          }}
-        />
+        <div className="xl:max-w-[1228px] md:max-w-[600px]">
+          <Table
+            columns={columns}
+            rowKey={(record) => record.movieID}
+            dataSource={data}
+            pagination={tableParams.pagination}
+            loading={loading}
+            onChange={handleTableChange}
+            style={{ padding: 24 }}
+            scroll={{
+              x: 1180,
+              y: 360,
+            }}
+          />
+        </div>
       </Card>
       {isAddNewModalOpen && (
         <MovieAddNew

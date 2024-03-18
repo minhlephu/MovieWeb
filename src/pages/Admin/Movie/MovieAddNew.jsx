@@ -43,10 +43,9 @@ const MovieAddNew = ({ isOpen, onClose }) => {
   const handleAddMovie = () => {
     form.validateFields().then((values) => {
       const formData = new FormData();
-      console.log("releaseDate", values.releaseDate);
       const movieVm = {
         movieName: values.movieName,
-        trailer:values.trailer,
+        trailer: values.trailer,
         summary: values.summary,
         releaseDate: releaseDate,
         duration: values.duration,
@@ -72,6 +71,7 @@ const MovieAddNew = ({ isOpen, onClose }) => {
         .createMovie(formData)
         .then(() => {
           toast.success("Thêm thành công");
+          form.resetFields();
         })
         .catch(() => {
           toast.error("Lỗi");

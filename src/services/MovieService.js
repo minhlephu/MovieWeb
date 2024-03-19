@@ -12,6 +12,12 @@ export class MovieServie extends baseService {
       datajson
     );
   };
+  deleteMovie =(id)=>{
+    return this.delete(`Movie/${id}`)
+  }
+  editMovie =(id)=>{
+    return this.put(`Movie/${id}`)
+  }
 }
 
 export const movieSevice = new MovieServie();

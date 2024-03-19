@@ -2,8 +2,8 @@ import { DatePicker, Modal, Form } from "antd";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { addTimeFrameAction } from "../../../redux/actions/TimeFrame";
+import { toast } from "react-toastify";
 const TimeFrameAddNew = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const [startTime, setStartTime] = useState();
@@ -32,13 +32,8 @@ const TimeFrameAddNew = ({ isOpen, onClose }) => {
   const [form] = Form.useForm();
   useEffect(() => {
     if (successAddTimeFrame) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Cập nhật thành công",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      toast.success("Thêm thành công");
+      form.resetFields();
     }
   }, [successAddTimeFrame]);
   return (

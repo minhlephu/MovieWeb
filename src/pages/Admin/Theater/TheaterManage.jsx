@@ -84,6 +84,7 @@ const TheaterManage = () => {
     )
       .then((res) => res.json())
       .then(({ results }) => {
+        console.log("resultandt",results);
         setData(results);
         setLoading(false);
         setTableParams({

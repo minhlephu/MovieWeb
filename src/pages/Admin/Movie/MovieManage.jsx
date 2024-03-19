@@ -1,58 +1,141 @@
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Card, CardHeader, Typography, Button } from "@material-tailwind/react";
-import { Select, Table, Input} from "antd";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Select, Table, Input } from "antd";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 const { Search } = Input;
 import qs from "qs";
 import MovieAddNew from "./MovieAddNew";
 import { useEffect, useState } from "react";
+import { movieSevice } from "../../../services/MovieService";
+import { Genre } from "../../../constrants/genre";
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: (name) => `${name.first} ${name.last}`,
-    width: "20%",
-  },
-  {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      {
-        text: "Male",
-        value: "male",
-      },
-      {
-        text: "Female",
-        value: "female",
-      },
-    ],
-    width: "20%",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-  },
-  {
-    title: "Sửa",
-    dataIndex: "sua",
-    render: () => <a><EditIcon></EditIcon></a>,
-  },
-  {
-    title: 'Xóa',
-    dataIndex: "xoa",
-    render: () => <a><DeleteIcon></DeleteIcon></a>,
-  },
-];
-const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
 const MovieManage = () => {
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "movieID",
+      width: 100,
+      fixed: "left",
+    },
+    {
+      title: "Name",
+      dataIndex: "movieName",
+      width: 100,
+      fixed: "left",
+    },
+    {
+      title: "Trailer",
+      dataIndex: "trailer",
+      width: 100,
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "summary",
+      width: 100,
+    },
+    {
+      title: "Ngày khởi chiếu",
+      dataIndex: "releaseDate",
+      width: 200,
+    },
+    {
+      title: "Thời lượng phim",
+      dataIndex: "duration",
+      width: 150,
+    },
+    {
+      title: "Sắp chiếu",
+      dataIndex: "commingSoon",
+      width: 120,
+      key: "commingSoon",
+      render: (commingSoon) => <span>{commingSoon ? "Yes" : "No"}</span>,
+    },
+    {
+      title: "Đang chiếu",
+      dataIndex: "showNow",
+      width: 120,
+      key: "showNow",
+      render: (showNow) => <span>{showNow ? "Yes" : "No"}</span>,
+    },
+    {
+      title: "Phim hot",
+      dataIndex: "hot",
+      width: 120,
+      key: "hot",
+      render: (hot) => <span>{hot ? "Yes" : "No"}</span>,
+    },
+    {
+      title: "Diễn viên",
+      dataIndex: "actors",
+      width: 100,
+    },
+    {
+      title: "Đạo diễn",
+      dataIndex: "directors",
+      width: 100,
+    },
+    {
+      title: "Poster",
+      dataIndex: "poster",
+      width: 200,
+    },
+    {
+      title: "Ảnh",
+      dataIndex: "images",
+      width: 200,
+    },
+    {
+      title: "Ngôn ngữ",
+      dataIndex: "language",
+      width: 100,
+    },
+    {
+      title: "Thể loại",
+      dataIndex: "genreID",
+      width: 100,
+      render: (genreID) => <span>{Genre[genreID]}</span>,
+    },
+    {
+      title: "Sửa",
+      dataIndex: "sua",
+      width: 100,
+      render: (text, record) => {
+        return (
+          <>
+            <EditIcon
+              onClick={() => {
+                onEdit(record);
+              }}
+            ></EditIcon>
+          </>
+        );
+      },
+    },
+    {
+      title: "Xóa",
+      dataIndex: "xoa",
+      width: 100,
+      render: (text, record) => {
+        return (
+          <>
+            <DeleteIcon
+              onClick={() => {
+                onDeleteMovie(record);
+              }}
+            ></DeleteIcon>
+          </>
+        );
+      },
+    },
+  ];
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
+  const [nameSearch, setNameSearch] = useState("");
+  const getRandomuserParams = (params) => ({
+    page: params.pagination?.current,
+    pageSize: params.pagination?.pageSize,
+    filter: nameSearch,
+  });
   const handleNewMovie = () => {
     setAddNewModalOpen(true);
   };
@@ -64,39 +147,32 @@ const MovieManage = () => {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
-      pageSize: 10,
+      pageSize: 15,
     },
   });
   const fetchData = () => {
     setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
+    const param = qs.stringify(getRandomuserParams(tableParams));
+    movieSevice.getListMovie(param).then((result) => {
+      setData(result.data.items);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: result.data.totalCount,
+          // 200 is mock data, you should read it from server
+          // total: data.totalCount,
+        },
       });
+    });
   };
   useEffect(() => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleTableChange = (pagination) => {
     setTableParams({
       pagination,
-      filters,
-      ...sorter,
     });
 
     // `dataSource` is useless since `pageSize` changed
@@ -104,15 +180,24 @@ const MovieManage = () => {
       setData([]);
     }
   };
+  const onDeleteMovie = (record) => {
+    console.log("record", record);
+  };
+  const onEdit = (record) => {
+    console.log("recordEdit", record);
+  };
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = (value) => {
+    setNameSearch(value);
+    fetchData();
+  };
   return (
     <>
       <Card className="h-full w-full !rounded-none !overflow-visible">
         <CardHeader floated={false} shadow={false} className="rounded-none p-3">
-          <div className="mb-8 flex items-center justify-between gap-8">
+          <div className="mb-4 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
                 Danh sách phim
@@ -150,20 +235,11 @@ const MovieManage = () => {
                   value: "lucy",
                   label: "Lucy",
                 },
-                {
-                  value: "Yiminghe",
-                  label: "yiminghe",
-                },
-                {
-                  value: "disabled",
-                  label: "Disabled",
-                  disabled: true,
-                },
               ]}
             />
             <div className="w-full md:w-72">
               <Search
-                placeholder="input search text"
+                placeholder="Tìm kiếm phim"
                 onSearch={onSearch}
                 style={{
                   width: 288,
@@ -172,18 +248,21 @@ const MovieManage = () => {
             </div>
           </div>
         </CardHeader>
-        <Table
-          columns={columns}
-          rowKey={(record) => record.login.uuid}
-          dataSource={data}
-          pagination={tableParams.pagination}
-          loading={loading}
-          onChange={handleTableChange}
-          style={{ padding: 24 }}
-          scroll={{
-            y: 360,
-          }}
-        />
+        <div className="xl:max-w-[1228px] md:max-w-[600px]">
+          <Table
+            columns={columns}
+            rowKey={(record) => record.movieID}
+            dataSource={data}
+            pagination={tableParams.pagination}
+            loading={loading}
+            onChange={handleTableChange}
+            style={{ padding: 24 }}
+            scroll={{
+              x: 1180,
+              y: 360,
+            }}
+          />
+        </div>
       </Card>
       {isAddNewModalOpen && (
         <MovieAddNew

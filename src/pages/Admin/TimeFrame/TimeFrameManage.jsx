@@ -7,10 +7,11 @@ const { Search } = Input;
 import qs from "qs";
 import { useEffect, useState } from "react";
 import TimeFrameAddNew from "./TimeFrameAddNew";
+import { timeFrameService } from "../../../services/TimeFrameService";
 const columns = [
   {
     title: "ID",
-    dataIndex: "id",
+    dataIndex: "timeFrameID",
     sorter: true,
     width: "20%",
   },
@@ -46,8 +47,8 @@ const columns = [
   },
 ];
 const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
+  current: params.pagination?.current,
+  pageSize: params.pagination?.pageSize,
 });
 const TimeFrameManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
@@ -56,8 +57,9 @@ const TimeFrameManage = () => {
   };
   const handleCloseModal = () => {
     setAddNewModalOpen(false);
+    fetchData();
   };
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -67,41 +69,29 @@ const TimeFrameManage = () => {
   });
   const fetchData = () => {
     setLoading(true);
-    console.log("test1",tableParams);
-    console.log("test",qs.stringify(
-      tableParams))
-
-    console.log("test2",qs.stringify(
-      getRandomuserParams(tableParams)));
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
+    const param = qs.stringify(getRandomuserParams(tableParams));
+      timeFrameService.getListTimeFrame(param)
+      .then(( result ) => {
+        setData(result.data.items);
         setLoading(false);
         setTableParams({
           ...tableParams,
           pagination: {
             ...tableParams.pagination,
-            total: 200,
+            total:result.data.totalCount,
             // 200 is mock data, you should read it from server
             // total: data.totalCount,
           },
         });
       });
-
   };
   useEffect(() => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleTableChange = (pagination, filters) => {
     setTableParams({
       pagination,
       filters,
-      ...sorter,
     });
 
     // `dataSource` is useless since `pageSize` changed
@@ -177,9 +167,10 @@ const TimeFrameManage = () => {
             </div>
           </div>
         </CardHeader>
+        
         <Table
           columns={columns}
-          rowKey={(record) => record.login.uuid}
+          rowKey={(record) => record.timeFrameID}
           dataSource={data}
           pagination={tableParams.pagination}
           loading={loading}

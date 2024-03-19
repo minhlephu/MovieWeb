@@ -38,8 +38,8 @@ const TimeFrameReducer = (state = initialState, action) => {
     }
     case GET_TIMEFRAME_LIST_SUCCESS: {
       return {
-        ...state,
-        timeFrameList: action.payload.data,
+        state,
+        timeFrameList: action.payload.data.items,
         loadingTimeFrameList: false,
       };
     }

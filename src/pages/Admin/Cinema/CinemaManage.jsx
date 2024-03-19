@@ -74,6 +74,7 @@ const CinemaManage = () => {
       current: 1,
       pageSize: 10,
     },
+    filter: "",
   });
   const fetchData = () => {
     setLoading(true);

@@ -100,21 +100,33 @@ const MovieManage = () => {
       title: "Sửa",
       dataIndex: "sua",
       width: 100,
-      render: () => (
-        <a>
-          <EditIcon></EditIcon>
-        </a>
-      ),
+      render: (text, record) => {
+        return (
+          <>
+            <EditIcon
+              onClick={() => {
+                onEdit(record);
+              }}
+            ></EditIcon>
+          </>
+        );
+      },
     },
     {
       title: "Xóa",
       dataIndex: "xoa",
       width: 100,
-      render: () => (
-        <a>
-          <DeleteIcon></DeleteIcon>
-        </a>
-      ),
+      render: (text, record) => {
+        return (
+          <>
+            <DeleteIcon
+              onClick={() => {
+                onDeleteMovie(record);
+              }}
+            ></DeleteIcon>
+          </>
+        );
+      },
     },
   ];
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
@@ -167,6 +179,12 @@ const MovieManage = () => {
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
+  };
+  const onDeleteMovie = (record) => {
+    console.log("record", record);
+  };
+  const onEdit = (record) => {
+    console.log("recordEdit", record);
   };
   const handleChange = (value) => {
     console.log(`selected ${value}`);

@@ -9,7 +9,8 @@ import MovieAddNew from "./MovieAddNew";
 import { useEffect, useState } from "react";
 import { movieSevice } from "../../../services/MovieService";
 import { Genre } from "../../../constrants/genre";
-
+import { toast } from "react-toastify";
+import MovieEdit from "./MovieEdit";
 const MovieManage = () => {
   const columns = [
     {
@@ -104,6 +105,7 @@ const MovieManage = () => {
         return (
           <>
             <EditIcon
+              className="cursor-pointer"
               onClick={() => {
                 onEdit(record);
               }}
@@ -120,6 +122,7 @@ const MovieManage = () => {
         return (
           <>
             <DeleteIcon
+              className="cursor-pointer"
               onClick={() => {
                 onDeleteMovie(record);
               }}
@@ -129,18 +132,26 @@ const MovieManage = () => {
       },
     },
   ];
-  const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
+  const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [edittingMovie, setEdittingMovie] = useState();
   const [nameSearch, setNameSearch] = useState("");
   const getRandomuserParams = (params) => ({
     page: params.pagination?.current,
     pageSize: params.pagination?.pageSize,
     filter: nameSearch,
   });
-  const handleNewMovie = () => {
-    setAddNewModalOpen(true);
+  const handleEditMovie = () => {
+    setIsEditModalOpen(true);
   };
-  const handleCloseModal = () => {
-    setAddNewModalOpen(false);
+  const handleCloseEditMovie = () => {
+    setIsEditModalOpen(false);
+  };
+  const handleNewMovie = () => {
+    setIsAddNewModalOpen(true);
+  };
+  const handleCloseModalAddNew = () => {
+    setIsAddNewModalOpen(false);
   };
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -181,10 +192,21 @@ const MovieManage = () => {
     }
   };
   const onDeleteMovie = (record) => {
-    console.log("record", record);
+    movieSevice
+      .deleteMovie(record.movieID)
+      .then((result) => {
+        if (result.data.status == 200) {
+          toast.success("Xóa thành công");
+          fetchData();
+        }
+      })
+      .catch(() => {
+        toast.error("Xóa không thành công");
+      });
   };
   const onEdit = (record) => {
-    console.log("recordEdit", record);
+    handleEditMovie();
+    setEdittingMovie(record);
   };
   const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -267,8 +289,15 @@ const MovieManage = () => {
       {isAddNewModalOpen && (
         <MovieAddNew
           isOpen={isAddNewModalOpen}
-          onClose={handleCloseModal}
+          onClose={handleCloseModalAddNew}
         ></MovieAddNew>
+      )}
+      {isEditModalOpen && (
+        <MovieEdit
+          isOpen={isEditModalOpen}
+          onClose={handleCloseEditMovie}
+          record={edittingMovie}
+        ></MovieEdit>
       )}
     </>
   );

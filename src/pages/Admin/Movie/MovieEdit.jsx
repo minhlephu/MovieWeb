@@ -9,28 +9,20 @@ import {
   Select,
   Form,
 } from "antd";
+import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import TextArea from "antd/es/input/TextArea";
-import { movieSevice } from "../../../services/MovieService";
-import { toast } from "react-toastify";
-import { useState } from "react";
 import { Genre } from "../../../constrants/genre";
 import { Language } from "../../../constrants/language";
-const onChange = (value) => {
-  console.log(`selected ${value}`);
-};
-const onSearch = (value) => {
-  console.log("search:", value);
-};
-// Filter `option.label` match the user type `input`
-const filterOption = (input, option) =>
-  (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-const MovieAddNew = ({ isOpen, onClose }) => {
-  const [form] = Form.useForm();
-  const [releaseDate, setReleaseDate] = useState();
-  const handleReleaseDate = (date, dateString) => {
-    setReleaseDate(dateString);
+import { useEffect } from "react";
+const MovieEdit = ({ isOpen, onClose, record }) => {
+  console.log("editrecord", record);
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+  const onSearch = (value) => {
+    console.log("search:", value);
   };
   const optionsGenre = Object.keys(Genre).map((key) => ({
     value: key,
@@ -40,56 +32,46 @@ const MovieAddNew = ({ isOpen, onClose }) => {
     value: key,
     label: Language[key],
   }));
-  const handleAddMovie = () => {
+  const filterOption = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+  const [form] = Form.useForm();
+  useEffect(() => {
+    if (record) {
+      const releaseDateMoment = moment(record.releaseDate);
+      form.setFieldsValue({
+        movieName: record.movieName,
+        trailer: record.trailer,
+        summary: record.summary,
+        releaseDate: releaseDateMoment,
+        duration: record.duration,
+        commingSoon: record.commingSoon,
+        showNow: record.showNow,
+        hot: record.hot,
+        actors: record.actors,
+        directors: record.directors,
+        poster: record.poster,
+        images: record.images,
+        language: record.language,
+        genre: Genre[record.genreID],
+      });
+    }
+  }, [record, form]);
+  const handleEditMovie = () => {
     form.validateFields().then((values) => {
-      const formData = new FormData();
-      const movieVm = {
-        movieName: values.movieName,
-        trailer: values.trailer,
-        summary: values.summary,
-        releaseDate: releaseDate,
-        duration: values.duration,
-        commingSoon: values.commingSoon,
-        showNow: values.showNow,
-        hot: values.hot,
-        actors: values.actors,
-        directors: values.directors,
-        country: values.country,
-        language: values.language,
-        genreID: values.genre,
-      };
-      const imagesFileList = values.images;
-      imagesFileList.fileList.forEach((file) => {
-        formData.append(`fileImages`, file.originFileObj);
-      });
-      const filePoster = values.poster;
-      filePoster.fileList.forEach((file) => {
-        formData.append("filePoster", file.originFileObj);
-      });
-      formData.append("datajson", JSON.stringify(movieVm));
-      movieSevice
-        .createMovie(formData)
-        .then(() => {
-          toast.success("Thêm thành công");
-          form.resetFields();
-        })
-        .catch(() => {
-          toast.error("Lỗi");
-        });
+      console.log("vluesddd", values);
     });
   };
-
   return (
     <>
       <Modal
-        title="Thêm phim mới"
+        title="Chỉnh sửa phim"
         open={isOpen}
         onCancel={onClose}
         width={800}
         cancelText="Hủy"
         okText="Thêm"
         okType="default"
-        onOk={handleAddMovie}
+        onOk={handleEditMovie}
       >
         <Form
           form={form}
@@ -108,7 +90,7 @@ const MovieAddNew = ({ isOpen, onClose }) => {
               },
             ]}
           >
-            <Input name="name" placeholder="Tên phim" />
+            <Input name="movieName" placeholder="Tên phim" />
           </Form.Item>
           <Form.Item
             label="Trailer"
@@ -144,10 +126,7 @@ const MovieAddNew = ({ isOpen, onClose }) => {
               },
             ]}
           >
-            <DatePicker
-              onChange={handleReleaseDate}
-              style={{ zIndex: 10000 }}
-            />
+            <DatePicker style={{ zIndex: 10000 }} />
           </Form.Item>
           <Form.Item
             label="Thời lượng phim"
@@ -165,12 +144,12 @@ const MovieAddNew = ({ isOpen, onClose }) => {
           <Form.Item
             label="Sắp chiếu"
             name="commingSoon"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Hãy chọn thời gian bắt đầu!",
-            //   },
-            // ]}
+            rules={[
+              {
+                required: true,
+                message: "Hãy chọn thời gian bắt đầu!",
+              },
+            ]}
           >
             <Switch name="commingSoon" defaultChecked />
           </Form.Item>
@@ -311,8 +290,9 @@ const MovieAddNew = ({ isOpen, onClose }) => {
     </>
   );
 };
-MovieAddNew.propTypes = {
+MovieEdit.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  record: PropTypes.object,
 };
-export default MovieAddNew;
+export default MovieEdit;

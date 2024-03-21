@@ -18,16 +18,7 @@ export const signInAction = (user) => {
       });
       const result = await userService.signIn(user);
       if (result.data.code == 200) {
-        // const decoded = jwtDecode(result.data.data);
-        // const name =
-        //   decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-        // const role =
-        //   decoded[
-        //     "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-        //   ];
-        // console.log("Name:", name);
-        // console.log("Role:", role);
-        localStorage.setItem("user", result.data.data);
+        localStorage.setItem("token", result.data.data);
         dispatch({
           type: LOGIN_SUCCESS,
           payload: {

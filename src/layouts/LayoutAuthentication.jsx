@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SignInPage from "../pages/SignInPage";
-import { StickyNavbar } from "./MainLayout/Header/Header";
+import Header from "./MainLayout/Header/Header";
 import SignUpPage from "../pages/SignUpPage";
 
 function CustomTabPanel(props) {
@@ -49,7 +49,7 @@ export default function LayoutAuthentication() {
   };
   return (
     <>
-      <StickyNavbar></StickyNavbar>
+      <Header></Header>
 
       <div className="bg-[#F1F1F1] h-screen mt-8">
         <div className="h-[72px]"></div>

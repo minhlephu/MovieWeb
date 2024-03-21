@@ -1,14 +1,26 @@
-import React from "react";
 import "./Header.scss";
 import {
-  Navbar,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-tailwind/react";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Link } from "react-router-dom";
+  AppBar,
+  Avatar,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+const headMenu = [
+  { nameLink: "Lịch chiếu", id: "lichchieu" },
+  { nameLink: "Cụm rạp", id: "cumrap" },
+  { nameLink: "Tin tức", id: "tintuc" },
+  { nameLink: "Ứng dụng", id: "ungdung" },
+];
 const Menu = [
   {
     title: "Hà Nội",
@@ -31,11 +43,11 @@ const Menu = [
     Rap: ["Rap1", "Rap2", "Rap3"],
   },
 ];
-
-export function StickyNavbar() {
-  const [openNav, setOpenNav] = React.useState(false);
-  const [submenuVisible, setSubmenuVisible] = React.useState(false);
-  const [text, setText] = React.useState("Vui Lòng chọn rạp");
+const Header = () => {
+  const { currentUser } = useSelector((state) => state.AuthReducer);
+  const [text, setText] = useState("Vui Lòng chọn rạp");
+  const [submenuVisible, setSubmenuVisible] = useState(false);
+  const navigate = useNavigate();
   const handleClick = (e) => {
     // Thay đổi state của text
     setText(e);
@@ -43,163 +55,102 @@ export function StickyNavbar() {
   const toggleSubmenu = () => {
     setSubmenuVisible(!submenuVisible);
   };
-  React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
-  }, []);
-
-  const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 !overflow-auto">
-      <Typography
-        as="li"
-        variant="h5"
-        color="blue-gray"
-        className="li-hv p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Lịch Chiếu Theo Rạp
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="h5"
-        color="blue-gray"
-        className="li-hv p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Phim
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="h5"
-        color="blue-gray"
-        className="li-hv p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Rạp
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="h5"
-        color="blue-gray"
-        className="li-hv p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Giá vé
-        </a>
-      </Typography>
-    </ul>
-  );
-
+  const handleLogin = () => {
+    navigate("/sign-in");
+  };
+  const handleRegister = () => {
+    navigate("/sigh-up");
+  };
   return (
-    <div className="">
-      <Navbar className="z-[100] top-0 w-full  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 fixed">
-        <div className="flex items-center justify-around text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
-          >
-            Material Tailwind
-          </Typography>
-          <div>
-            <button className="dropbtn bg-[#f9f9f9]" onClick={toggleSubmenu}>
-              <span className="span1">{text}</span>
-              <KeyboardArrowDownIcon className="icon" />
-            </button>
+    <div className="root">
+      <AppBar position="fixed" color="default" className="appBar">
+        <Toolbar className="spaceBetween" sx={{ height: 72, fontSize: 18 }}>
+          <div className="flex gap-x-64 items-center">
+            <div className="logo">
+              <img
+                src="/img/headTixLogo.png"
+                alt="logo"
+                style={{ height: 50 }}
+              />
+            </div>
+            <div>
+              <button className="dropbtn bg-[#f9f9f9]" onClick={toggleSubmenu}>
+                <span className="span1">{text}</span>
+                <KeyboardArrowDownIcon className="icon" />
+              </button>
 
-            <div className={`dropdown-content ${submenuVisible ? "show" : ""}`}>
-              {Menu.map((e) => (
-                <div key={e.title}>
-                  <div className="sub-menu">
-                    <button className="sub-menu-trigger">
-                      <span className="span1">{e.title}</span>
-                      <KeyboardArrowRightIcon className="icon" />
-                    </button>
-                    <div className="sub-menu-content">
-                      {e.Rap.map((item) => (
-                        <a
-                          key={item.title}
-                          onClick={() => handleClick(e.title + " - " + item)}
-                        >
-                          {item}
-                        </a>
-                      ))}
+              <div
+                className={`dropdown-content ${submenuVisible ? "show" : ""}`}
+              >
+                {Menu.map((e) => (
+                  <div key={e.title}>
+                    <div className="sub-menu">
+                      <button className="sub-menu-trigger">
+                        <span className="span1">{e.title}</span>
+                        <KeyboardArrowRightIcon className="icon" />
+                      </button>
+                      <div className="sub-menu-content">
+                        {e.Rap.map((item) => (
+                          <a
+                            key={item.title}
+                            onClick={() => handleClick(e.title + " - " + item)}
+                          >
+                            {item}
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="linkTobody">
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              {headMenu.map((link) => (
+                <span key={link.id} className="link">
+                  {link.nameLink}
+                </span>
               ))}
-            </div>
+            </Grid>
           </div>
-          <div className="flex items-center gap-[240px]">
-            <div className="mr-4 hidden lg:block ">{navList}</div>
-            <div className="flex items-center gap-x-1">
-              <Button
-                variant="text"
-                size="medium"
-                className="hidden lg:inline-block"
-              >
-                <Link className="text-[16px]" to="sign-in">Đăng nhập</Link>
-              </Button>
-              <Button
-                variant="gradient"
-                size="medium"
-                className="hidden lg:inline-block"
-              >
-                <Link className="text-[16px]">Đăng Ký</Link>
-              </Button>
-            </div>
-            <IconButton
-              variant="text"
-              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-              ripple={false}
-              onClick={() => setOpenNav(!openNav)}
-            ></IconButton>
+          <div className="user">
+            {currentUser ? (
+              <List disablePadding className="auth">
+                <ListItem className="itemAuth divide">
+                  <ListItemIcon className="iconLogin">
+                    <Avatar className="avatar" src="/img/avatar.png"></Avatar>
+                  </ListItemIcon>
+                  <ListItemText primary={currentUser?.hoTen} />
+                </ListItem>
+                <ListItem className="itemAuth">
+                  <ListItemText primary="Đăng Xuất" />
+                </ListItem>
+              </List>
+            ) : (
+              <List disablePadding className="auth">
+                <ListItem className="itemAuth divide" onClick={handleLogin}>
+                  <ListItemIcon className="iconLogin">
+                    <AccountCircleIcon fontSize="large" />
+                  </ListItemIcon>
+                  <ListItemText primary="Đăng Nhập" />
+                </ListItem>
+                <ListItem className="itemAuth" onClick={handleRegister}>
+                  <ListItemText primary="Đăng Ký" />
+                </ListItem>
+              </List>
+            )}
           </div>
-        </div>
-        {/* <MobileNav open={openNav}>
-          {navList}
-          <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
-          </div>
-        </MobileNav> */}
-      </Navbar>
-      {/* <div className="mx-auto max-w-screen-md py-12">
-        <Card className="mb-12 overflow-hidden">
-          <img
-            alt="nature"
-            className="h-[32rem] w-full object-cover object-center"
-            src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80"
-          />
-        </Card>
-        <Typography variant="h2" color="blue-gray" className="mb-2">
-          What is Material Tailwind
-        </Typography>
-        <Typography color="gray" className="font-normal">
-          Can you help me out? you will get a lot of free exposure doing this
-          can my website be in english?. There is too much white space do less
-          with more, so that will be a conversation piece can you rework to make
-          the pizza look more delicious other agencies charge much lesser can
-          you make the blue bluer?. I think we need to start from scratch can my
-          website be in english?, yet make it sexy i&apos;ll pay you in a week
-          we don&apos;t need to pay upfront i hope you understand can you make
-          it stand out more?. Make the font bigger can you help me out? you will
-          get a lot of free exposure doing this that&apos;s going to be a chunk
-          of change other agencies charge much lesser. Are you busy this
-          weekend? I have a new project with a tight deadline that&apos;s going
-          to be a chunk of change. There are more projects lined up charge extra
-          the next time.
-        </Typography>
-      </div> */}
+        </Toolbar>
+      </AppBar>
     </div>
   );
-}
+};
+
+export default Header;

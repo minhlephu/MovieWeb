@@ -1,4 +1,3 @@
-import React from "react";
 import "./detailPage.scss";
 import {
   CustomSlier,
@@ -6,14 +5,12 @@ import {
   ItemComment,
   TabsBooking,
 } from "../../components";
-import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
+import Header from "../../layouts/MainLayout/Header/Header";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import StarIcon from "@mui/icons-material/Star";
-
 const DetailPage = () => {
   return (
     <>
-      <StickyNavbar />
+      <Header />
       <div className="container-detail w-full max-w-[980px] mx-auto">
         <CustomSlier />
         <InfoMovie />

@@ -1,4 +1,4 @@
-
+import { jwtDecode } from "jwt-decode";
 import {
   LOGIN_REQUEST,
   LOGIN_FAIL,
@@ -10,9 +10,37 @@ import {
   LOGOUT,
 } from "../constrants/Auth";
 
-const currentUser = localStorage.getItem("user")
-  ? localStorage.getItem("user")
+const token = localStorage.getItem("token")
+  ? localStorage.getItem("token")
   : null;
+console.log("token", token);
+
+let currentUser = null;
+if (token) {
+  const decoded = jwtDecode(`${token}`);
+  const expirationDate = decoded.exp;
+  const currentTime = Date.now() / 1000;
+
+  if (expirationDate < currentTime) {
+    localStorage.removeItem("token");
+  } else {
+    const name =
+      decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+    const role =
+      decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    const email =
+      decoded[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+      ];
+
+    currentUser = {
+      userName: name,
+      userRole: role,
+      userEmail: email,
+    };
+  }
+}
+console.log("cuuUsser", currentUser);
 const initialState = {
   currentUser: currentUser,
   loadingLogin: false,
@@ -42,7 +70,7 @@ const AuthReducer = (state = initialState, action) => {
       };
     }
     case LOGOUT: {
-      localStorage.removeItem("user");
+      localStorage.removeItem("token");
       return {
         ...state,
         currentUser: null,

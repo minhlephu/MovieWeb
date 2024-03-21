@@ -1,3 +1,88 @@
+.root {
+  display: flex;
+}
+.appBar {
+  height: 72px;
+  background-color: rgba(255, 255, 255, 0.95);
+  transition-duration: 225ms;
+}
+.spaceBetween {
+  justify-content: space-between;
+}
+.logo {
+  cursor: pointer;
+}
+.linkTobody {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+}
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: auto;
+}
+.link:hover {
+  text-decoration: none;
+  background-color: transparent;
+  color: #337ab7;
+  transition: all 0.2s;
+}
+.user {
+  display: block;
+}
+.auth {
+  display: flex;
+  color: #9b9b9b;
+}
+.itemAuth {
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: fit-content;
+}
+.itemAuth:hover {
+  background-color: transparent;
+}
+.itemAuth:hover .MuiTypography-root {
+  color: #337ab7;
+}
+.itemAuth .MuiTypography-root {
+  transition: all 0.2s;
+}
+.itemAuth .MuiListItemIcon-root {
+  transition: all 0.2s;
+}
+.hover:hover {
+  color: #337ab7;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.iconLogin {
+  min-width: 41px;
+  color: #9b9b9b;
+}
+.divide {
+  font-weight: 500;
+}
+.divide::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  height: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right: 2px solid #e9e9e9;
+}
+
 /* Your CSS styles */
 .dropdown {
   position: relative;
@@ -17,7 +102,7 @@
   border: none;
   cursor: pointer;
   width: 200px;
-  height: 50px;
+  height: 36px;
   border-radius: 18px;
   display: flex;
   border: 1px solid #ccc;
@@ -34,7 +119,7 @@
   width: 200px;
   margin-left: 15px;
   margin-top: 2px;
-  border-top: solid 4px #337ab7;
+  border-top: solid 2px #337ab7;
 }
 
 .dropdown-content.show {

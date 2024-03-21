@@ -1,7 +1,7 @@
 import ModalTrailer from "../../components/ModalTrailer/ModalTrailer";
 import ListMovie from "../../components/Movie/ListMovie";
 import Footer from "../../layouts/MainLayout/Footer";
-import { StickyNavbar } from "../../layouts/MainLayout/Header/Header";
+import Header from "../../layouts/MainLayout/Header/Header";
 import Carousel from "./Carousel/Carousel";
 import {
   Tabs,
@@ -26,7 +26,7 @@ const HomePage = () => {
 
   return (
     <>
-      <StickyNavbar></StickyNavbar>
+      <Header></Header>
       <div>
         <div className="h-[72px]"></div>
         <Carousel></Carousel>
@@ -42,7 +42,11 @@ const HomePage = () => {
             }}
           >
             {data.map(({ label, value }) => (
-              <Tab key={value} value={value} className="w-[240px] h-10 text-xl text-white">
+              <Tab
+                key={value}
+                value={value}
+                className="w-[240px] h-10 text-xl text-white"
+              >
                 {label}
               </Tab>
             ))}

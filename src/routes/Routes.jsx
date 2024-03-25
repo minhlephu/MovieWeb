@@ -13,6 +13,7 @@ import {
 import pathRoute from "../util/pathRoute";
 import LayoutAuthentication from "../layouts/LayoutAuthentication";
 import LayoutAdmin from "../layouts/AdminLayout/LayoutAdmin";
+import UserInfo from "../pages/UserInfo";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: pathRoute.BOOKTICKETS,
     element: <BookTicket />,
+  },
+  {
+    path: pathRoute.USERINFO,
+    element: <UserInfo />,
   },
 ]);
 

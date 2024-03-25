@@ -25,7 +25,6 @@ const movie = [
   },
   {
     movieID: 3,
-
     movieName: "Gặp lại chị bầu",
     duration: "120",
     releaseDate: "02/02/2024",
@@ -36,7 +35,6 @@ const movie = [
   },
   {
     movieID: 4,
-
     movieName: "Nhà vịt di cư",
     duration: "110",
     releaseDate: "02/02/2024",
@@ -47,7 +45,6 @@ const movie = [
   },
   {
     movieID: 5,
-
     movieName: "Gặp lại chị bầu",
     duration: "120",
     releaseDate: "02/02/2024",
@@ -58,7 +55,6 @@ const movie = [
   },
   {
     movieID: 6,
-
     movieName: "Nhà vịt di cư",
     duration: "110",
     releaseDate: "02/02/2024",
@@ -69,7 +65,6 @@ const movie = [
   },
   {
     movieID: 7,
-
     movieName: "Nhà vịt di cư",
     duration: "110",
     releaseDate: "02/02/2024",
@@ -80,7 +75,6 @@ const movie = [
   },
   {
     movieID: 8,
-
     movieName: "Nhà vịt di cư",
     duration: "110",
     releaseDate: "02/02/2024",

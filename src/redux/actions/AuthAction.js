@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { userService } from "../../services/userService";
 
 import {
@@ -19,10 +20,26 @@ export const signInAction = (user) => {
       const result = await userService.signIn(user);
       if (result.data.code == 200) {
         localStorage.setItem("token", result.data.data);
+        const decoded = jwtDecode(`${result.data.data}`);
+        const name =
+          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+        const role =
+          decoded[
+            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          ];
+        const email =
+          decoded[
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+          ];
+        const currentUser = {
+          userName: name,
+          userRole: role,
+          userEmail: email,
+        };
         dispatch({
           type: LOGIN_SUCCESS,
           payload: {
-            data: result.data.data,
+            data: currentUser,
           },
         });
       }
@@ -38,7 +55,7 @@ export const signInAction = (user) => {
     }
   };
 };
-export const logout = () => {
+export const logOutAction = () => {
   return (dispatch) => {
     dispatch({
       type: LOGOUT,

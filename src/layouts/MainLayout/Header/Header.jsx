@@ -12,9 +12,10 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { logOutAction } from "../../../redux/actions/AuthAction";
 const headMenu = [
   { nameLink: "Lịch chiếu", id: "lichchieu" },
   { nameLink: "Cụm rạp", id: "cumrap" },
@@ -48,6 +49,7 @@ const Header = () => {
   const [text, setText] = useState("Vui Lòng chọn rạp");
   const [submenuVisible, setSubmenuVisible] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleClick = (e) => {
     // Thay đổi state của text
     setText(e);
@@ -59,7 +61,13 @@ const Header = () => {
     navigate("/sign-in");
   };
   const handleRegister = () => {
-    navigate("/sigh-up");
+    navigate("/sign-in");
+  };
+  const handleLogOut = () => {
+    dispatch(logOutAction());
+  };
+  const handldeUserInfo = () => {
+    navigate("/user-info");
   };
   return (
     <div className="root">
@@ -83,7 +91,8 @@ const Header = () => {
                 className={`dropdown-content ${submenuVisible ? "show" : ""}`}
               >
                 {Menu.map((e) => (
-                  <div key={e.title}>
+                  // eslint-disable-next-line react/jsx-key
+                  <div>
                     <div className="sub-menu">
                       <button className="sub-menu-trigger">
                         <span className="span1">{e.title}</span>
@@ -123,13 +132,13 @@ const Header = () => {
           <div className="user">
             {currentUser ? (
               <List disablePadding className="auth">
-                <ListItem className="itemAuth divide">
+                <ListItem className="itemAuth divide" onClick={handldeUserInfo}>
                   <ListItemIcon className="iconLogin">
                     <Avatar className="avatar" src="/img/avatar.png"></Avatar>
                   </ListItemIcon>
-                  <ListItemText primary={currentUser?.hoTen} />
+                  <ListItemText primary={currentUser?.userName} />
                 </ListItem>
-                <ListItem className="itemAuth">
+                <ListItem onClick={handleLogOut} className="itemAuth">
                   <ListItemText primary="Đăng Xuất" />
                 </ListItem>
               </List>

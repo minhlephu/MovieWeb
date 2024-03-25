@@ -13,8 +13,6 @@ import {
 const token = localStorage.getItem("token")
   ? localStorage.getItem("token")
   : null;
-console.log("token", token);
-
 let currentUser = null;
 if (token) {
   const decoded = jwtDecode(`${token}`);
@@ -40,7 +38,6 @@ if (token) {
     };
   }
 }
-console.log("cuuUsser", currentUser);
 const initialState = {
   currentUser: currentUser,
   loadingLogin: false,

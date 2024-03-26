@@ -4,4 +4,5 @@ export const Language = {
   "Tiếng Nhật": "Tiếng Nhật",
   "Tiếng Anh": "Tiếng Anh",
   "Tiếng Pháp": "Tiếng Pháp",
+  "Tiếng Thái": "Tiếng Thái",
 };

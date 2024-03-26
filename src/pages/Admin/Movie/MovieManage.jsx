@@ -33,7 +33,7 @@ const MovieManage = () => {
     {
       title: "Mô tả",
       dataIndex: "summary",
-      width: 100,
+      width: 300,
     },
     {
       title: "Ngày khởi chiếu",
@@ -69,7 +69,7 @@ const MovieManage = () => {
     {
       title: "Diễn viên",
       dataIndex: "actors",
-      width: 100,
+      width: 200,
     },
     {
       title: "Đạo diễn",

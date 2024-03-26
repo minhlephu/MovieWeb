@@ -1,20 +1,61 @@
 import Header from "../layouts/MainLayout/Header/Header";
-import { Tabs } from "antd";
+import { Form, Input, Tabs } from "antd";
 const onChange = (key) => {
   console.log(key);
 };
 const Info = () => {
-  return <>
-  <div>
-    hi
-  </div>
-  </>;
+  const [form] = Form.useForm();
+  return (
+    <>
+      <div className="w-[50%]">
+        <Form form={form} layout="vertical">
+          <Form.Item
+            label="Họ và tên"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Hãy điền tên phim!",
+              },
+            ]}
+          >
+            <Input name="username" placeholder="Họ và tên" />
+          </Form.Item>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Hãy điền tên phim!",
+              },
+            ]}
+          >
+            <Input name="email" placeholder="Email" />
+          </Form.Item>
+          <Form.Item
+            label="Số điện thoại"
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message: "Hãy điền tên phim!",
+              },
+            ]}
+          >
+            <Input name="phone" placeholder="Số điện thoại" />
+          </Form.Item>
+        </Form>
+      </div>
+    </>
+  );
 };
 const BookingHistory = () => {
-  return <>
-  <div>
-    hihi
-  </div></>;
+  return (
+    <>
+      <div>hihi</div>
+    </>
+  );
 };
 const items = [
   {

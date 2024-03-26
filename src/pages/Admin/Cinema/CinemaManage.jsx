@@ -10,48 +10,50 @@ import CinemaAddNew from "./CinemaAddNew";
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: (name) => `${name.first} ${name.last}`,
-    width: "20%",
+    title: "ID",
+    dataIndex: "cinemaId",
+    width: 100,
+    fixed: "left",
   },
   {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      {
-        text: "Male",
-        value: "male",
-      },
-      {
-        text: "Female",
-        value: "female",
-      },
-    ],
-    width: "20%",
+    title: "Tên rạp",
+    dataIndex: "cinemaName",
+    width: 300,
+    fixed: "left",
+    sorter: (a, b) => a.cinemaName - b.cinemaName,
   },
   {
-    title: "Email",
-    dataIndex: "email",
+    title: "Địa chỉ",
+    dataIndex: "cinemaAddress",
+    width: 500,
   },
   {
-    title: "Sửa",
-    dataIndex: "sua",
-    render: () => (
-      <a>
-        <EditIcon></EditIcon>
-      </a>
-    ),
+    title: "Tỉnh/Thành phố",
+    dataIndex: "cinemaCity",
+    width: 300,
+    sorter: (a, b) => a.cinemaCity - b.cinemaCity,
   },
   {
-    title: "Xóa",
-    dataIndex: "xoa",
-    render: () => (
-      <a>
-        <DeleteIcon></DeleteIcon>
-      </a>
-    ),
+    title: "Action",
+    dataIndex: "action",
+    width: 150,
+    render: (text, record) => {
+      return (
+        <div>
+          <EditIcon
+            style={{ marginRight: "10px" }}
+            onClick={() => {
+              onEdit(record);
+            }}
+          ></EditIcon>
+          <DeleteIcon
+            onClick={() => {
+              onDeleteMovie(record);
+            }}
+          ></DeleteIcon>
+        </div>
+      );
+    },
   },
 ];
 const getRandomuserParams = (params) => ({
@@ -59,9 +61,10 @@ const getRandomuserParams = (params) => ({
   page: params.pagination?.current,
   ...params,
 });
+
 const CinemaManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
-  const handleNewMovie = () => {
+  const handleNewCinema = () => {
     setAddNewModalOpen(true);
   };
   const handleCloseModal = () => {
@@ -116,7 +119,9 @@ const CinemaManage = () => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
   const onSearch = (value, _e, info) => console.log(info?.source, value);
+
   return (
     <>
       <Card className="h-full w-full !rounded-none !overflow-visible">
@@ -124,10 +129,10 @@ const CinemaManage = () => {
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Danh sách phim
+                Danh sách rạp chiếu
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                Xem thông tin tất cả các phim
+                Xem thông tin của các rạp chiếu
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -137,42 +142,50 @@ const CinemaManage = () => {
               <Button
                 className="flex items-center gap-3"
                 size="sm"
-                onClick={handleNewMovie}
+                onClick={handleNewCinema}
               >
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Thêm phim
+                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Thêm rạp
+                chiếu mới
               </Button>
             </div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Select
-              defaultValue="lucy"
+              defaultValue="HaNoi"
               style={{
                 width: 288,
               }}
               onChange={handleChange}
               options={[
                 {
-                  value: "jack",
-                  label: "Jack",
+                  value: "HaNoi",
+                  label: "Hà Nội",
                 },
                 {
-                  value: "lucy",
-                  label: "Lucy",
+                  value: "TpHcm",
+                  label: "TP Hồ Chí Minh",
                 },
                 {
-                  value: "Yiminghe",
-                  label: "yiminghe",
+                  value: "DaNang",
+                  label: "Đà Nẵng",
                 },
                 {
-                  value: "disabled",
-                  label: "Disabled",
-                  disabled: true,
+                  value: "ThanhHoa",
+                  label: "Thanh Hoá",
+                },
+                {
+                  value: "HaiPhong",
+                  label: "Hải Phòng",
+                },
+                {
+                  value: "QuangNinh",
+                  label: "Quảng Ninh",
                 },
               ]}
             />
             <div className="w-full md:w-72">
               <Search
-                placeholder="input search text"
+                placeholder="Tìm kiếm"
                 onSearch={onSearch}
                 style={{
                   width: 288,

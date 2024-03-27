@@ -2,7 +2,16 @@ import BtnPlay from "../BtnPlay/BtnPlay";
 import "./movie.scss";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
+import {HOST } from "../../constrants/config";
+import { Genre } from "../../constrants/genre";
+import { useNavigate } from "react-router-dom";
+
 const Movie = ({ movie }) => {
+  const poster = `${HOST + movie.poster}`;
+  const navigate = useNavigate();
+  const handleDetailMovie = ()=>{
+    navigate(`detail-film/${movie.movieID}`)
+  }
   return (
     <div
       style={{
@@ -10,19 +19,15 @@ const Movie = ({ movie }) => {
         cursor: "pointer",
       }}
     >
-      <div className="film">
-        <div className="film__img w-full h-full ">
+      <div className="film mb-10">
+        <div className="film__img w-full h-full min-w-[228px] min-h-[360px]">
           <div className="film__poster w-full h-full">
-            <img
-              src={movie.poster}
-              alt=""
-              className="w-full h-full rounded-[20px]"
-            />
+            <img src={poster} alt="" className="w-full h-full rounded-[20px] min-w-[228px] min-h-[360px]" />
             <div
               className="age"
               style={{ position: "absolute", top: "10px", left: "10px" }}
             >
-              T{movie.age}
+              T18{movie.age}
             </div>
             <div className="film__overlay rounded-[20px]" />
             <div className="play__trailer">
@@ -37,16 +42,14 @@ const Movie = ({ movie }) => {
           </div>
           {/* <BlockRating danhGia={movie.danhGia} /> */}
         </div>
-        <div className="film__content">
+        <div className="film__content min-w-[228px]">
           <div className="film__name">
             <div className="name">
-              <div>
-                {movie.movieName}
-              </div>
+              <div className="cursor-pointer" onClick={handleDetailMovie}>{movie.movieName}</div>
             </div>
             <div className="line">
               <span className="titlle">Thể loại: &nbsp;</span>
-              <span className="text_info">{movie.genre}</span>
+              <span className="text_info">{Genre[movie.genreID]}</span>
             </div>
             <div className="line">
               <span className="titlle">Thời lượng: &nbsp;</span>

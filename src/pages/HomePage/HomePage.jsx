@@ -1,5 +1,6 @@
 import ModalTrailer from "../../components/ModalTrailer/ModalTrailer";
-import ListMovie from "../../components/Movie/ListMovie";
+import ListMovieCommingSoon from "../../components/Movie/ListMovieCommingSoon";
+import ListMovieShowNow from "../../components/Movie/ListMovieShowNow";
 import Footer from "../../layouts/MainLayout/Footer";
 import Header from "../../layouts/MainLayout/Header/Header";
 import Carousel from "./Carousel/Carousel";
@@ -15,12 +16,12 @@ const HomePage = () => {
     {
       label: "Đang Chiếu",
       value: "dangchieu",
-      desc: <ListMovie></ListMovie>,
+      desc: <ListMovieShowNow></ListMovieShowNow>,
     },
     {
       label: "Sắp Chiếu",
       value: "sapchieu",
-      desc: <ListMovie></ListMovie>,
+      desc: <ListMovieCommingSoon></ListMovieCommingSoon>,
     },
   ];
 

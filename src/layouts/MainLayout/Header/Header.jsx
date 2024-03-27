@@ -17,10 +17,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logOutAction } from "../../../redux/actions/AuthAction";
 const headMenu = [
-  { nameLink: "Lịch chiếu", id: "lichchieu" },
-  { nameLink: "Cụm rạp", id: "cumrap" },
-  { nameLink: "Tin tức", id: "tintuc" },
-  { nameLink: "Ứng dụng", id: "ungdung" },
+  { nameLink: "Lịch chiếu theo rạp", id: "lichchieutheorap" },
+  { nameLink: "Phim", id: "phim" },
+  { nameLink: "Rạp", id: "rap" },
+  { nameLink: "Giá vé", id: "giave" },
 ];
 const Menu = [
   {
@@ -28,19 +28,19 @@ const Menu = [
     Rap: ["Rap1", "Rap2", "Rap3"],
   },
   {
-    title: "Hà Nội",
+    title: "Thái Nguyên",
     Rap: ["Rap1", "Rap2", "Rap3"],
   },
   {
-    title: "Hà Nội",
+    title: "Bắc Ninh",
     Rap: ["Rap1", "Rap2", "Rap3"],
   },
   {
-    title: "Hà Nội",
+    title: "Thanh Hóa",
     Rap: ["Rap1", "Rap2", "Rap3"],
   },
   {
-    title: "thanh hoa",
+    title: "Đà Nẵng",
     Rap: ["Rap1", "Rap2", "Rap3"],
   },
 ];
@@ -91,8 +91,7 @@ const Header = () => {
                 className={`dropdown-content ${submenuVisible ? "show" : ""}`}
               >
                 {Menu.map((e) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <div>
+                  <div key={e.title}>
                     <div className="sub-menu">
                       <button className="sub-menu-trigger">
                         <span className="span1">{e.title}</span>

@@ -7,7 +7,10 @@ import {
 } from "../../components";
 import Header from "../../layouts/MainLayout/Header/Header";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { useParams} from "react-router-dom";
 const DetailPage = () => {
+  let { id } = useParams();
+  console.log("id",id);
   return (
     <>
       <Header />

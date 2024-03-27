@@ -1,6 +1,6 @@
 const pathRoute = {
     HOME: '/',
-    DETAIL: '/detail-film/:id-film',
+    DETAIL: '/detail-film/:id',
     SIGNIN: '/sign-in',
     ADMIN:'/admin',
     BOOKTICKETS: '/book-tickets/:id' ,

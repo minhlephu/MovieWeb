@@ -5,18 +5,9 @@ import { cinemaService } from "../../../services/CinemaService";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const onChange = (value) => {
-  console.log(`selected ${value}`);
-};
-const onSearch = (value) => {
-  console.log("search:", value);
-};
-
 // Filter `option.label` match the user type `input`
-const filterOption = (input, option) =>
-  (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
-const CinemaAddNew = ({ isOpen, onClose }) => {
+const CinemaEdit = ({ isOpen, onClose, record, setIsModalEditOpen }) => {
   const [form] = Form.useForm();
   const [cites, setCities] = useState();
 
@@ -30,7 +21,13 @@ const CinemaAddNew = ({ isOpen, onClose }) => {
     fetchDataCity();
   }, [cites]);
 
-  const handleAddCinema = async () => {
+  const onChange = (value) => {};
+  const onSearch = (value) => {};
+
+  const filterOption = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
+  const handleUpdateCinema = async () => {
     form.validateFields().then((values) => {
       const cinemaData = {
         cinemaName: values.cinemaName,
@@ -39,28 +36,36 @@ const CinemaAddNew = ({ isOpen, onClose }) => {
       };
 
       cinemaService
-        .createNewCinema(cinemaData)
+        .updateCinema(record.cinemaID, cinemaData)
         .then(() => {
-          toast.success("Thêm thành công");
-          form.resetFields();
+          setIsModalEditOpen(false);
+          toast.success("Cập nhật thành công");
         })
         .catch(() => {
-          toast.error("Lỗi");
+          toast.error("Lỗi! Cập nhật thất bại");
         });
     });
   };
 
+  useEffect(() => {
+    form.setFieldsValue({
+      cinemaName: record.cinemaName,
+      cinemaAddress: record.cinemaAddress,
+      cinemaCity: record.cityID,
+    });
+  }, [record]);
+
   return (
     <>
       <Modal
-        title="Thêm thông tin rạp chiếu mới"
+        title={` Chỉnh sửa thông tin rạp ${record.cinemaName}`}
         open={isOpen}
         onCancel={onClose}
         width={800}
-        cancelText="Hủy"
-        okText="Thêm mới"
+        cancelText="Cancel"
+        okText="Cập nhật"
         okType="default"
-        onOk={handleAddCinema}
+        onOk={handleUpdateCinema}
       >
         <Form
           form={form}
@@ -114,8 +119,8 @@ const CinemaAddNew = ({ isOpen, onClose }) => {
     </>
   );
 };
-CinemaAddNew.propTypes = {
+CinemaEdit.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
 };
-export default CinemaAddNew;
+export default CinemaEdit;

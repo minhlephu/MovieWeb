@@ -1,75 +1,21 @@
+import "./cinemaManage.scss";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Card, CardHeader, Typography, Button } from "@material-tailwind/react";
 import { Select, Table, Input } from "antd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-const { Search } = Input;
 import qs from "qs";
 import { useEffect, useState } from "react";
 import CinemaAddNew from "./CinemaAddNew";
-
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "cinemaId",
-    width: 100,
-    fixed: "left",
-  },
-  {
-    title: "Tên rạp",
-    dataIndex: "cinemaName",
-    width: 300,
-    fixed: "left",
-    sorter: (a, b) => a.cinemaName - b.cinemaName,
-  },
-  {
-    title: "Địa chỉ",
-    dataIndex: "cinemaAddress",
-    width: 500,
-  },
-  {
-    title: "Tỉnh/Thành phố",
-    dataIndex: "cinemaCity",
-    width: 300,
-    sorter: (a, b) => a.cinemaCity - b.cinemaCity,
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-    width: 150,
-    render: (text, record) => {
-      return (
-        <div>
-          <EditIcon
-            style={{ marginRight: "10px" }}
-            onClick={() => {
-              onEdit(record);
-            }}
-          ></EditIcon>
-          <DeleteIcon
-            onClick={() => {
-              onDeleteMovie(record);
-            }}
-          ></DeleteIcon>
-        </div>
-      );
-    },
-  },
-];
-const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
+import CinemaEdit from "./CinemaEdit";
+import { cinemaService } from "../../../services/CinemaService";
+import { toast } from "react-toastify";
+const { Search } = Input;
 
 const CinemaManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
-  const handleNewCinema = () => {
-    setAddNewModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setAddNewModalOpen(false);
-  };
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [infoCinema, setInfoCinema] = useState();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
@@ -79,31 +25,85 @@ const CinemaManage = () => {
     },
     filter: "",
   });
+
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "cinemaID",
+      width: 100,
+      fixed: "left",
+    },
+    {
+      title: "Tên rạp",
+      dataIndex: "cinemaName",
+      width: 300,
+      fixed: "left",
+      sorter: (a, b) => a.cinemaName - b.cinemaName,
+    },
+    {
+      title: "Địa chỉ",
+      dataIndex: "cinemaAddress",
+      width: 500,
+    },
+    {
+      title: "Tỉnh/Thành phố",
+      dataIndex: "cityName",
+      width: 300,
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      width: 150,
+      render: (text, record) => {
+        return (
+          <div className="action">
+            <EditIcon
+              className="btn-edit"
+              style={{ marginRight: "10px" }}
+              onClick={() => {
+                onEdit(record);
+              }}
+            ></EditIcon>
+            <DeleteIcon
+              className="btn-delete"
+              onClick={() => {
+                onDeleteCinema(record);
+              }}
+            ></DeleteIcon>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const getRandomuserParams = (params) => ({
+    results: params.pagination?.pageSize,
+    page: params.pagination?.current,
+    ...params,
+  });
+
   const fetchData = () => {
     setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
+    const param = qs.stringify(getRandomuserParams(tableParams));
+    cinemaService.getListCinema(param).then((result) => {
+      setData(result.data.items);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: result.data.totalCount,
+          // 200 is mock data, you should read it from server
+          // total: data.totalCount,
+        },
       });
+    });
   };
+
   useEffect(() => {
     fetchData();
-  }, [JSON.stringify(tableParams)]);
+  }, [JSON.stringify(tableParams), isAddNewModalOpen, isModalEditOpen]);
+
   const handleTableChange = (pagination, filters, sorter) => {
     setTableParams({
       pagination,
@@ -116,6 +116,35 @@ const CinemaManage = () => {
       setData([]);
     }
   };
+
+  const handleNewCinema = () => {
+    setAddNewModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setAddNewModalOpen(false);
+    setIsModalEditOpen(false);
+  };
+
+  const onEdit = (record) => {
+    console.log(record);
+    setIsModalEditOpen(true);
+    setInfoCinema(record);
+  };
+
+  const onDeleteCinema = (record) => {
+    confirm(`Bạn có chắc chắn muốn xóa rạp ${record.cinemaName} không!`) ===
+      true &&
+      cinemaService
+        .removeCinema(record.cinemaID)
+        .then(() => {
+          fetchData();
+          toast.success(`Xóa rạp ${record.cinemaName} thành công`);
+        })
+        .catch(() => {
+          toast.error("Xóa không thành công");
+        });
+  };
+
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -196,7 +225,7 @@ const CinemaManage = () => {
         </CardHeader>
         <Table
           columns={columns}
-          rowKey={(record) => record.login.uuid}
+          rowKey={(record) => record.cinemaID}
           dataSource={data}
           pagination={tableParams.pagination}
           loading={loading}
@@ -204,6 +233,16 @@ const CinemaManage = () => {
           style={{ padding: 24 }}
         />
       </Card>
+
+      {isModalEditOpen && (
+        <CinemaEdit
+          record={infoCinema}
+          isOpen={isModalEditOpen}
+          onClose={handleCloseModal}
+          setIsModalEditOpen={setIsModalEditOpen}
+        ></CinemaEdit>
+      )}
+
       {isAddNewModalOpen && (
         <CinemaAddNew
           isOpen={isAddNewModalOpen}

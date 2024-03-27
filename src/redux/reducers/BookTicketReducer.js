@@ -9,7 +9,7 @@ const initialState = {
   activeStep: 0,
 }
 
-const bookTicketReducer = (state = initialState, action) => {
+const BookTicketReducer = (state = initialState, action) => {
   switch(action.type) {
     case SET_STEP: {
       return {
@@ -23,4 +23,4 @@ const bookTicketReducer = (state = initialState, action) => {
   }
 }
 
-export default bookTicketReducer;
+export default BookTicketReducer;

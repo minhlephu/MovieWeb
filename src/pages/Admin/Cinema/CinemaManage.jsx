@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import CinemaAddNew from "./CinemaAddNew";
 import CinemaEdit from "./CinemaEdit";
 import { cinemaService } from "../../../services/CinemaService";
+import { cityService } from "../../../services/CityService";
 import { toast } from "react-toastify";
 const { Search } = Input;
 
@@ -18,12 +19,16 @@ const CinemaManage = () => {
   const [infoCinema, setInfoCinema] = useState();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [cites, setCities] = useState();
+  const [citySearch, setCitySearch] = useState(0);
+  const [nameSearch, setNameSearch] = useState("");
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
       pageSize: 10,
     },
     filter: "",
+    city: 0,
   });
 
   const columns = [
@@ -79,8 +84,19 @@ const CinemaManage = () => {
   const getRandomuserParams = (params) => ({
     results: params.pagination?.pageSize,
     page: params.pagination?.current,
-    ...params,
+    filter: nameSearch,
+    city: citySearch,
   });
+
+  const fetchDataCity = () => {
+    cityService.getListCity().then((result) => {
+      setCities(result.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchDataCity();
+  }, [cites]);
 
   const fetchData = () => {
     setLoading(true);
@@ -102,7 +118,13 @@ const CinemaManage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [JSON.stringify(tableParams), isAddNewModalOpen, isModalEditOpen]);
+  }, [
+    JSON.stringify(tableParams),
+    isAddNewModalOpen,
+    isModalEditOpen,
+    citySearch,
+    nameSearch,
+  ]);
 
   const handleTableChange = (pagination, filters, sorter) => {
     setTableParams({
@@ -146,10 +168,12 @@ const CinemaManage = () => {
   };
 
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    setCitySearch(value);
   };
 
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = (value) => {
+    setNameSearch(value);
+  };
 
   return (
     <>
@@ -180,37 +204,16 @@ const CinemaManage = () => {
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Select
-              defaultValue="HaNoi"
+              placeholder="Lọc theo Tỉnh/Thành phố"
+              showSearch
               style={{
                 width: 288,
               }}
               onChange={handleChange}
-              options={[
-                {
-                  value: "HaNoi",
-                  label: "Hà Nội",
-                },
-                {
-                  value: "TpHcm",
-                  label: "TP Hồ Chí Minh",
-                },
-                {
-                  value: "DaNang",
-                  label: "Đà Nẵng",
-                },
-                {
-                  value: "ThanhHoa",
-                  label: "Thanh Hoá",
-                },
-                {
-                  value: "HaiPhong",
-                  label: "Hải Phòng",
-                },
-                {
-                  value: "QuangNinh",
-                  label: "Quảng Ninh",
-                },
-              ]}
+              options={cites?.map((city) => ({
+                value: city.cityID,
+                label: city.cityName,
+              }))}
             />
             <div className="w-full md:w-72">
               <Search

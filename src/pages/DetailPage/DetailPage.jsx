@@ -7,16 +7,24 @@ import {
 } from "../../components";
 import Header from "../../layouts/MainLayout/Header/Header";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { movieSevice } from "../../services/MovieService";
 const DetailPage = () => {
+  const [movie, setMovie] = useState({});
   let { id } = useParams();
-  console.log("id",id);
+
+  useEffect(() => {
+    movieSevice.getDetailMovie(id).then((result) => {
+      setMovie(result.data.data);
+    });
+  }, []);
   return (
     <>
       <Header />
       <div className="container-detail w-full max-w-[980px] mx-auto">
-        <CustomSlier />
-        <InfoMovie />
+        <CustomSlier movie={movie} />
+        <InfoMovie movie={movie} />
         <TabsBooking />
         {/* Form comment */}
         <div className="rate-review">

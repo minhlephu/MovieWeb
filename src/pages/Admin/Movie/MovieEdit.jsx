@@ -9,6 +9,7 @@ import {
   Select,
   Form,
 } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -16,6 +17,7 @@ import TextArea from "antd/es/input/TextArea";
 import { Genre } from "../../../constrants/genre";
 import { Language } from "../../../constrants/language";
 import { useEffect } from "react";
+import { HOST } from "../../../constrants/config";
 const MovieEdit = ({ isOpen, onClose, record }) => {
   console.log("editrecord", record);
   const onChange = (value) => {
@@ -38,6 +40,8 @@ const MovieEdit = ({ isOpen, onClose, record }) => {
   useEffect(() => {
     if (record) {
       const releaseDateMoment = moment(record.releaseDate);
+      console.log("record.poster", record.poster);
+      console.log("record.images", record.images);
       form.setFieldsValue({
         movieName: record.movieName,
         trailer: record.trailer,
@@ -56,11 +60,40 @@ const MovieEdit = ({ isOpen, onClose, record }) => {
       });
     }
   }, [record, form]);
+  const posterPaths = `${HOST + record.poster}`;
+  console.log("posterPaths", posterPaths);
+  const imageArr = record.images
+    ? record.images.split(";").filter(Boolean)
+    : [];
+  if (imageArr.length > 0) {
+    for (let i = 0; i < imageArr.length; i++) {
+      imageArr[i] = HOST + imageArr[i];
+    }
+  }
+  console.log("imageArr", imageArr);
   const handleEditMovie = () => {
     form.validateFields().then((values) => {
       console.log("vluesddd", values);
     });
   };
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
   return (
     <>
       <Modal
@@ -216,10 +249,12 @@ const MovieEdit = ({ isOpen, onClose, record }) => {
               },
             ]}
           >
-            <Upload beforeUpload={() => false} maxCount={1}>
-              <Button icon={<UploadOutlined />}>
-                Click to Upload (Max: 1)
-              </Button>
+            <Upload
+              beforeUpload={() => false}
+              maxCount={1}
+              listType="picture-card"
+            >
+              {uploadButton}
             </Upload>
           </Form.Item>
           <Form.Item

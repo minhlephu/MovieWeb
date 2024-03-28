@@ -4,9 +4,12 @@ export class MovieServie extends baseService {
   getListMovie = (param) => {
     return this.get(`Movie/Movies?${param}`);
   };
-  getListMovieShowNow = (param)=>{
-    return this.get(`Movie/ShowNow?${param}`)
-  }
+  getListMovieShowNow = (param) => {
+    return this.get(`Movie/ShowNow?${param}`);
+  };
+  getDetailMovie = (id) => {
+    return this.get(`Movie/MovieInfo/${id}`);
+  };
   createMovie = (fileImages, filePoster, datajson) => {
     return this.post(
       `Movie/CreateMovieUpload`,
@@ -15,12 +18,12 @@ export class MovieServie extends baseService {
       datajson
     );
   };
-  deleteMovie =(id)=>{
-    return this.delete(`Movie/${id}`)
-  }
-  editMovie =(id)=>{
-    return this.put(`Movie/${id}`)
-  }
+  deleteMovie = (id) => {
+    return this.delete(`Movie/${id}`);
+  };
+  editMovie = (id) => {
+    return this.put(`Movie/${id}`);
+  };
 }
 
 export const movieSevice = new MovieServie();

@@ -10,55 +10,59 @@ import TheaterAddNew from "./TheaterAddNew";
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: (name) => `${name.first} ${name.last}`,
-    width: "20%",
+    title: "ID Phòng",
+    dataIndex: "theaterID",
+    width: 80,
+    fixed: "left",
   },
   {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      {
-        text: "Male",
-        value: "male",
-      },
-      {
-        text: "Female",
-        value: "female",
-      },
-    ],
-    width: "20%",
+    title: "Tên phòng chiếu",
+    dataIndex: "theaterName",
+    width: 200,
+    fixed: "left",
+    sorter: (a, b) => a.cinemaName - b.cinemaName,
   },
   {
-    title: "Email",
-    dataIndex: "email",
+    title: "Mã rạp",
+    dataIndex: "cinemaID",
+    width: 80,
   },
   {
-    title: "Sửa",
-    dataIndex: "sua",
-    render: () => (
-      <a>
-        <EditIcon></EditIcon>
-      </a>
-    ),
+    title: "Tên rạp",
+    dataIndex: "cinemaName",
+    width: 200,
   },
   {
-    title: "Xóa",
-    dataIndex: "xoa",
-    render: () => (
-      <a>
-        <DeleteIcon></DeleteIcon>
-      </a>
-    ),
+    title: "Số lượng ghế",
+    dataIndex: "qtySeat",
+    width: 150,
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
+    width: 150,
+    render: (text, record) => {
+      return (
+        <div className="action">
+          <EditIcon
+            className="btn-edit"
+            style={{ marginRight: "10px" }}
+            onClick={() => {
+              onEdit(record);
+            }}
+          ></EditIcon>
+          <DeleteIcon
+            className="btn-delete"
+            onClick={() => {
+              onDeleteCinema(record);
+            }}
+          ></DeleteIcon>
+        </div>
+      );
+    },
   },
 ];
-const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
+
 const TheaterManage = () => {
   const [isAddNewModalOpen, setAddNewModalOpen] = useState(false);
   const handleNewMovie = () => {
@@ -75,6 +79,13 @@ const TheaterManage = () => {
       pageSize: 10,
     },
   });
+
+  const getRandomuserParams = (params) => ({
+    results: params.pagination?.pageSize,
+    page: params.pagination?.current,
+    ...params,
+  });
+
   const fetchData = () => {
     setLoading(true);
     fetch(
@@ -84,7 +95,7 @@ const TheaterManage = () => {
     )
       .then((res) => res.json())
       .then(({ results }) => {
-        console.log("resultandt",results);
+        console.log("resultandt", results);
         setData(results);
         setLoading(false);
         setTableParams({
@@ -113,6 +124,7 @@ const TheaterManage = () => {
       setData([]);
     }
   };
+
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
